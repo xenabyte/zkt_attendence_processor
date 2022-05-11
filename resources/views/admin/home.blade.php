@@ -23,7 +23,7 @@
                 <div class="row">
                     <div class="col-7">
                         <div class="text-primary p-3">
-                            <h5 class="text-primary">Welcome Back !</h5>
+                            <h5 class="text-primary">Welcome Back!</h5>
                             <p>{{ env('APP_NAME') }} Dashboard</p>
                         </div>
                     </div>
@@ -41,6 +41,20 @@
                         <h5 class="font-size-15 text-truncate">{{ Auth::guard('admin')->user()->name }}</h5>
                         <p class="text-muted mb-0 text-truncate">Administrator</p>
                     </div>
+                </div>
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title mb-4">Captured Days</h4>
+
+                <div class="text-center">
+                    <div class="mb-4">
+                        <i class="bx bx-time-five text-primary display-4"></i>
+                    </div>
+                    <h3>{{date('d') - 1 }} Days</h3>
+                    <p>San Francisco</p>
+                    <p>Today's date is {{date('d D M Y') }}</p>
                 </div>
             </div>
         </div>
@@ -112,24 +126,23 @@
 
         <div class="card">
             <div class="card-body">
-                <div class="d-sm-flex flex-wrap">
-                    <h4 class="card-title mb-4">Email Sent</h4>
-                    <div class="ms-auto">
-                        <ul class="nav nav-pills">
-                            <li class="nav-item">
-                                <a class="nav-link" href="#">Week</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="#">Month</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link active" href="#">Year</a>
-                            </li>
-                        </ul>
-                    </div>
+
+                <h4 class="card-title">Upload Attendance</h4>
+                <p class="card-title-desc">Upload attendance file extracted from attendance capturing device <br><span class="text-danger"><strong>Note:</strong> Only .xls file allowed.</p>
+                </p>
+
+                <div>
+                    <form action="{{ url('/admin/uploadAttendance') }}"  method="post" enctype="multipart/form-data">
+                        @csrf
+                        <div class="fallback dropzone"">
+                            <input name="file" type="file" required>
+                        </div>
+                       
+
+                        <br>
+                        <button type="submit" class="btn btn-primary waves-effect waves-light">Upload Attendance</button>
+                    </form>
                 </div>
-                
-                <div id="stacked-column-chart" class="apex-charts" dir="ltr"></div>
             </div>
         </div>
     </div>
