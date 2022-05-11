@@ -1,4 +1,4 @@
-@extends('user.layout.auth')
+@extends('staff.layout.auth')
 <?php $name = "Reset Password" ?>
 <!-- Main Content -->
 @section('content')

@@ -1,4 +1,4 @@
-@extends('user.layout.auth')
+@extends('staff.layout.auth')
 <?php $name = "Register" ?>
 @section('content')
 

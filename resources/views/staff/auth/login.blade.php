@@ -1,4 +1,4 @@
-@extends('user.layout.auth')
+@extends('staff.layout.auth')
 <?php $name = "Login" ?>
 
 @section('content')
@@ -78,7 +78,6 @@
                                 <div class="mt-5 text-center">
                                     <hr>
                                     <div>
-                                        <p>Don't have an account ? <a href="{{ url('user/register') }}" class="fw-medium text-primary"> Signup now </a> </p>
                                         <p>© <script>document.write(new Date().getFullYear())</script> {{env('APP_NAME')}}.</p>
                                     </div>
                                 </div>

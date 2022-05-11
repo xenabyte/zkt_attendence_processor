@@ -1,5 +1,5 @@
-@extends('user.layout.auth')
-<?php $name = "Register" ?>
+@extends('staff.layout.auth')
+<?php $name = "Reset Password" ?>
 @section('content')
 
 <div class="account-pages my-5 pt-sm-5">
