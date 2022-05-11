@@ -33,4 +33,11 @@ class HomeController extends Controller
         return view('admin.home');
     }
 
+
+    public function staffs()
+    {
+
+        return view('admin.staffs');
+    }
+
 }

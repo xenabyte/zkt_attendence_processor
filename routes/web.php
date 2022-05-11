@@ -32,7 +32,8 @@ Route::group(['prefix' => 'admin'], function () {
   Route::get('/password/reset/{token}', [App\Http\Controllers\Admin\Auth\ResetPasswordController::class, 'showResetForm']);
 
   Route::get('/home', [App\Http\Controllers\Admin\HomeController::class, 'index']);
-  
+  Route::get('/staffs', [App\Http\Controllers\Admin\HomeController::class, 'staffs']);
+
 });
 
 Route::group(['prefix' => 'staff'], function () {
