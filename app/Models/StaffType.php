@@ -9,6 +9,9 @@ class StaffType extends Model
 {
     use HasFactory;
 
+    const STAFF_SENIOR = "Senior Staff";
+    const STAFF_JUNIOR = "Junior Staff";
+
     protected $fillable = [
         'type',
     ];

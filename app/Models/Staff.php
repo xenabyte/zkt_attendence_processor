@@ -27,6 +27,7 @@ class Staff extends Authenticatable
         'class',
         'type',
         'image',
+        'date_of_birth',
         'email', 
         'password',
     ];

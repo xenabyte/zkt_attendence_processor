@@ -4,7 +4,7 @@
 <head>
         
         <meta charset="utf-8" />
-        <title>Dashboard | {{ env('APP_NAME')}} - Admin </title>
+        <title>Dashboard | {{ env('APP_NAME')}} - Staff </title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta content="{{ env('APP_DESCRIPTION') }}" name="description" />
         <meta content="Ogundele Damilare" name="author" />
@@ -89,19 +89,11 @@
                             </button>
                             <div class="dropdown-menu dropdown-menu-end">
                                 <!-- item-->
-                                <a class="dropdown-item" href="#"><i class="bx bx-user font-size-16 align-middle me-1"></i> <span key="t-profile">Profile</span></a>
-                                <a class="dropdown-item" href="#"><i class="bx bx-wallet font-size-16 align-middle me-1"></i> <span key="t-my-wallet">My Wallet</span></a>
-                                <a class="dropdown-item d-block" href="#"><span class="badge bg-success float-end">11</span><i class="bx bx-wrench font-size-16 align-middle me-1"></i> <span key="t-settings">Settings</span></a>
-                                <a class="dropdown-item" href="#"><i class="bx bx-lock-open font-size-16 align-middle me-1"></i> <span key="t-lock-screen">Lock screen</span></a>
                                 <div class="dropdown-divider"></div>
-                                <a href="{{ url('/admin/logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();" class="dropdown-item text-danger" href="#"><i class="bx bx-power-off font-size-16 align-middle me-1 text-danger"></i> <span key="t-logout">Logout</span></a>
-                                <form id="logout-form" action="{{ url('/admin/logout') }}" method="POST" style="display: none;">{{ csrf_field() }}</form>
+                                <a href="{{ url('/staff/logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();" class="dropdown-item text-danger" href="#"><i class="bx bx-power-off font-size-16 align-middle me-1 text-danger"></i> <span key="t-logout">Logout</span></a>
+                                <form id="logout-form" action="{{ url('/staff/logout') }}" method="POST" style="display: none;">{{ csrf_field() }}</form>
                             </div>
                         </div>
-
-                        {{-- <a href="{{ url('/admin/logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Logout</a>
-
-    <form id="logout-form" action="{{ url('/admin/logout') }}" method="POST" style="display: none;">{{ csrf_field() }}</form> --}}
 
                     </div>
                 </div>
@@ -129,6 +121,13 @@
                                 <a href="{{ url('/admin/staffs') }}" class="waves-effect">
                                     <i class="bx bx-user-circle"></i>
                                     <span key="t-dashboards">All Staffs</span>
+                                </a>
+                            </li>
+
+                            <li>
+                                <a href="{{ url('/staff/logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();" class="waves-effect">
+                                    <i class="bx bx-power-off"></i>
+                                    <span key="t-dashboards">Logout</span>
                                 </a>
                             </li>
 

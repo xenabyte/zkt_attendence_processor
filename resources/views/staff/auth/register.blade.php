@@ -11,8 +11,8 @@
                         <div class="row">
                             <div class="col-7">
                                 <div class="text-primary p-4">
-                                    <h5 class="text-primary">Free Register</h5>
-                                    <p>Get your free {{env('APP_NAME')}} account now.</p>
+                                    <h5 class="text-primary">Complete Staff Profile</h5>
+                                    <p>Kindly complete your profile to access account.</p>
                                 </div>
                             </div>
                             <div class="col-5 align-self-end">
@@ -31,6 +31,38 @@
                             </a>
                         </div>
                         <div class="p-2">
+                            <form>
+                                <div class="form-floating mb-3">
+                                    <input type="text" class="form-control" id="floatingnameInput" placeholder="Enter Name">
+                                    <label for="floatingnameInput">Name</label>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-floating mb-3">
+                                            <input type="email" class="form-control" id="floatingemailInput" placeholder="Enter Email address">
+                                            <label for="floatingemailInput">Email address</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-floating mb-3">
+                                            <select class="form-select" id="floatingSelectGrid" aria-label="Floating label select example">
+                                                <option selected>Open this select menu</option>
+                                                <option value="1">One</option>
+                                                <option value="2">Two</option>
+                                                <option value="3">Three</option>
+                                            </select>
+                                            <label for="floatingSelectGrid">Works with selects</label>
+                                        </div>
+                                    </div>
+                                </div>
+
+                               
+                                <div>
+                                    <button type="submit" class="btn btn-primary w-md">Submit</button>
+                                </div>
+                            </form>
+
+
                             <form class="needs-validation" novalidate method="POST" action="{{ url('/staff/register') }}">
                                 @csrf
                                

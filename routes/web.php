@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('staff.auth.login');
 });
 
 Route::group(['prefix' => 'admin'], function () {
@@ -43,11 +43,13 @@ Route::group(['prefix' => 'staff'], function () {
   Route::post('/login', [App\Http\Controllers\Staff\Auth\LoginController::class, 'login']);
   Route::post('/logout', [App\Http\Controllers\Staff\Auth\LoginController::class, 'logout'])->name('logout');
 
-  // Route::get('/register', [App\Http\Controllers\Staff\Auth\RegisterController::class, 'showRegistrationForm'])->name('register');
+  Route::post('/completeRegistration', [App\Http\Controllers\HomeController::class, 'completeRegistration']);
   // Route::post('/register', [App\Http\Controllers\Staff\Auth\RegisterController::class, 'register']);
 
   Route::post('/password/email', [App\Http\Controllers\Staff\Auth\ForgotPasswordController::class, 'sendResetLinkEmail'])->name('password.request');
   Route::post('/password/reset', [App\Http\Controllers\Staff\Auth\ResetPasswordController::class, 'reset'])->name('password.email');
   Route::get('/password/reset', [App\Http\Controllers\Staff\Auth\ForgotPasswordController::class, 'showLinkRequestForm'])->name('password.reset');
   Route::get('/password/reset/{token}', [App\Http\Controllers\Staff\Auth\ResetPasswordController::class, 'showResetForm']);
+
+  Route::get('/home', [App\Http\Controllers\Staff\HomeController::class, 'index']);
 });

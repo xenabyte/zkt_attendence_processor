@@ -9,6 +9,9 @@ class StaffClass extends Model
 {
     use HasFactory;
 
+    const STAFF_ACADEMIC = "Academic Staff";
+    const STAFF_NON_ACADEMIC = "Non Academic Staff";
+
     protected $fillable = [
         'class',
     ];
