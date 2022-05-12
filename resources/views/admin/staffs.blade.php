@@ -23,6 +23,7 @@
                 <h4 class="card-title">All Staff Records</h4>
                 <p class="card-title-desc">All Staff with the present month {{ date('M Y') }} Attendance Records</p>
                 </p>
+                <hr>
 
                 <table id="datatable-buttons" class="table table-bordered dt-responsive nowrap w-100">
                     <thead>
@@ -39,15 +40,17 @@
 
 
                     <tbody>
+                    @foreach ($staffs as $staff)
                     <tr>
-                        <td>Tiger Nixon</td>
-                        <td>System Architect</td>
-                        <td>Edinburgh</td>
-                        <td>61</td>
-                        <td>2011/04/25</td>
-                        <td>$320,800</td>
-                        <td>$170,750</td>
+                        <td>{{ $staff->tau_staff_id }}</td>
+                        <td>{{ $staff->lastname . ' '.$staff->firstname }}</td>
+                        <td>{{ $staff->job_specification }}</td>
+                        <td>{{ $staff->faculty .'/'. $staff->department }}</td>
+                        <td>{{ $staff->email .'/'. $staff->phone_number }}</td>
+                        <td>{{ $staff->attendance->count() }}</td>
+                        <td></td>
                     </tr>
+                    @endforeach
                     </tbody>
                 </table>
             </div>

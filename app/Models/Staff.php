@@ -19,6 +19,7 @@ class Staff extends Authenticatable
         'firstname',
         'middlename',
         'lastname',
+        'phone_number',
         'tau_staff_id',
         'job_specification',
         'faculty',
@@ -58,6 +59,6 @@ class Staff extends Authenticatable
      */
     public function attendance()
     {
-        return $this->hasMany(Attendance::class, 'staff_id');
+        return $this->hasMany(Attendance::class, 'staff_id')->where('status', 1);
     }
 }

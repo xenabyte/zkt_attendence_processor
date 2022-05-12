@@ -11,8 +11,9 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Hash;
 use App\Http\Requests;
 use Illuminate\Support\Facades\Validator;
+use Maatwebsite\Excel\Facades\Excel;
+use App\Imports\AttendanceImport;
 
-use App\Models\User;
 use App\Models\Attendance;
 use App\Models\Staff;
 use App\Models\StaffClass;
@@ -31,15 +32,21 @@ class HomeController extends Controller
 
     public function index()
     {
+        $staffs = Staff::with('attendance');
 
-        return view('admin.home');
+        return view('admin.home', [
+            'staffs' => $staffs
+        ]);
     }
 
 
     public function staffs()
     {
+        $Staffs = Staff::with('attendance')->get();
 
-        return view('admin.staffs');
+        return view('admin.staffs', [
+            'staffs' => $Staffs
+        ]);
     }
 
     public function uploadAttendance(Request $request){
@@ -51,18 +58,28 @@ class HomeController extends Controller
             ],
             [
                 'file' => 'required',
-                'extention' => 'required|in:xls'
+                'extention' => 'required|in:xlsx'
             ]
         );
 
+
+        // $attendanceFile = 'uploads/attendance/'.$request->file('file')->getClientOriginalName(); 
+        // $MoveAttendanceFile = $request->file('file')->move('uploads/attendance', $attendanceFile);
         if ($validator->fails()) {
             alert()->error('Error', $validator->messages()->all()[0])->persistent('Close');
             return redirect()->back();
         }
 
         //explode xls file.
-        $attendanceFile = $request->files;
+        $attendanceFile = $request->file;
+        //importing xlx file into attendance imports
+        if(Excel::import(new AttendanceImport, $attendanceFile)){
+            alert()->success('Good', 'Attendance uploaded successfully')->persistent('Close');
+            return redirect()->back();
+        }
 
+        alert()->error('Error', 'Attendance upload not successful')->persistent('Close');
+        return redirect()->back();
     }
 
 }

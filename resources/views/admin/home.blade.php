@@ -53,8 +53,8 @@
                         <i class="bx bx-time-five text-primary display-4"></i>
                     </div>
                     <h3>{{date('d') - 1 }} Days</h3>
-                    <p>San Francisco</p>
-                    <p>Today's date is {{date('d D M Y') }}</p>
+                    <p>Sa</p>
+                    <p>Today's date is {{date('d D M, Y') }}</p>
                 </div>
             </div>
         </div>
@@ -67,7 +67,7 @@
                         <div class="d-flex">
                             <div class="flex-grow-1">
                                 <p class="text-muted fw-medium">Total Staff</p>
-                                <h4 class="mb-0">1,235</h4>
+                                <h4 class="mb-0">{{ $staffs->count() }}</h4>
                             </div>
 
                             <div class="flex-shrink-0 align-self-center">
@@ -87,7 +87,7 @@
                         <div class="d-flex">
                             <div class="flex-grow-1">
                                 <p class="text-muted fw-medium">Senior Staff</p>
-                                <h4 class="mb-0">35, 723</h4>
+                                <h4 class="mb-0">{{ $staffs->where('type' , 1)->count() }}</h4>
                             </div>
 
                             <div class="flex-shrink-0 align-self-center ">
@@ -107,7 +107,7 @@
                         <div class="d-flex">
                             <div class="flex-grow-1">
                                 <p class="text-muted fw-medium">Junior Staff</p>
-                                <h4 class="mb-0">16.2</h4>
+                                <h4 class="mb-0">{{ $staffs->where('type' , 2)->count() }}</h4>
                             </div>
 
                             <div class="flex-shrink-0 align-self-center">
