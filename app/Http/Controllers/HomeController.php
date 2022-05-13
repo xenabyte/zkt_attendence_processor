@@ -54,6 +54,12 @@ class HomeController extends Controller
         }
 
         $tauStaffId = $request->tau_staff_id;
+
+        if (strpos($tauStaffId, 'TAU/') == false) {
+            alert()->error('Error', 'Invalid Staff ID')->persistent('Close');
+            return redirect()->back();
+        }
+        
         //get staff information
         $staff = Staff::where('tau_staff_id', $tauStaffId)->first();
         if(!$staff){
@@ -74,6 +80,7 @@ class HomeController extends Controller
 
         $imageUrl = 'uploads/staff/'.md5($tauStaffId).$request->file('file')->getClientOriginalName(); 
         $image = $request->file('file')->move('uploads/staff', $imageUrl);
+        
 
         $staff->lastname = $request->lastname;
         $staff->firstname = $request->firstname;

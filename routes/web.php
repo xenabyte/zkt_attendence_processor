@@ -52,4 +52,5 @@ Route::group(['prefix' => 'staff'], function () {
   Route::get('/password/reset/{token}', [App\Http\Controllers\Staff\Auth\ResetPasswordController::class, 'showResetForm']);
 
   Route::get('/home', [App\Http\Controllers\Staff\HomeController::class, 'index']);
+  Route::get('/attendance', [App\Http\Controllers\Staff\HomeController::class, 'Attendance']);
 });

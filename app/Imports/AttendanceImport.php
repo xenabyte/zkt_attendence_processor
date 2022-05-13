@@ -41,12 +41,20 @@ class AttendanceImport implements ToCollection
                 $checkAttendance = Attendance::where('staff_id', $staff->id)->where('date', $date)->first();
                 if(empty($checkAttendance)){
                     //add attendance
+                    $status = null;
+                    if(empty($clockOut) || empty($clockIn)){
+                        $status = 0;
+                    }elseif(empty($clockOut) && empty($clockIn)){
+                        $status = null;
+                    }else{
+                        $status = 1;
+                    }
                     $newAttendance = ([
                         'staff_id' => $staff->id,
                         'date' => $date,
                         'clock_in' => $clockIn,
                         'clock_out' => $clockOut,
-                        'status' => (!empty($clockIn) && !empty($clockOut)) ? 1 : 0,
+                        'status' => $status,
                     ]);
 
                     $addAttendance = Attendance::create($newAttendance);

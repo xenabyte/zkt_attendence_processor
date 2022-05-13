@@ -82,9 +82,9 @@
                         <div class="dropdown d-inline-block">
                             <button type="button" class="btn header-item waves-effect" id="page-header-user-dropdown"
                             data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <img class="rounded-circle header-profile-user" src="{{asset('assets/images/users/avatar-1.jpg')}}"
+                                <img class="rounded-circle header-profile-user" src="{{asset( Auth::guard('staff')->user()->image )}}"
                                     alt="Header Avatar">
-                                <span class="d-none d-xl-inline-block ms-1" key="t-henry">{{  Auth::guard('admin')->user()->name }}</span>
+                                <span class="d-none d-xl-inline-block ms-1" key="t-henry">{{  Auth::guard('staff')->user()->firstname }}</span>
                                 <i class="mdi mdi-chevron-down d-none d-xl-inline-block"></i>
                             </button>
                             <div class="dropdown-menu dropdown-menu-end">
@@ -111,16 +111,16 @@
                             <li class="menu-title" key="t-menu">Menu</li>
 
                             <li>
-                                <a href="{{ url('/admin/home') }}" class="waves-effect">
+                                <a href="{{ url('/staff/home') }}" class="waves-effect">
                                     <i class="bx bx-home-circle"></i>
                                     <span key="t-dashboards">Dashboard</span>
                                 </a>
                             </li>
 
                             <li>
-                                <a href="{{ url('/admin/staffs') }}" class="waves-effect">
-                                    <i class="bx bx-user-circle"></i>
-                                    <span key="t-dashboards">All Staffs</span>
+                                <a href="{{ url('/staff/attendance') }}" class="waves-effect">
+                                    <i class="bx bx-time-five"></i>
+                                    <span key="t-dashboards">Attendance</span>
                                 </a>
                             </li>
 

@@ -37,8 +37,20 @@ class HomeController extends Controller
     {
         $staffs = Staff::with('attendance');
 
+        $tauStaffId = Auth::guard('staff')->user()->tau_staff_id;
+
         return view('staff.home', [
             'staffs' => $staffs
+        ]);
+    }
+
+    public function attendance()
+    {
+        $staffId = Auth::guard('staff')->user()->id;
+        $attendances = Attendance::where('staff_id', $staffId)->orderBy('date')->get();
+
+        return view('staff.attendance', [
+            'attendances' => $attendances
         ]);
     }
 }
