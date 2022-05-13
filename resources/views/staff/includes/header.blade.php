@@ -45,21 +45,21 @@
                     <div class="d-flex">
                         <!-- LOGO -->
                         <div class="navbar-brand-box">
-                            <a href="index-2.html" class="logo logo-dark">
+                            <a href="{{ url('/staff/home') }}" class="logo logo-dark">
                                 <span class="logo-sm">
-                                    <img src="{{asset('assets/images/logo.svg')}}" alt="" height="22">
+                                    <img src="{{asset('assets/images/yy.png')}}" alt="" height="30">
                                 </span>
                                 <span class="logo-lg">
-                                    <img src="{{asset('assets/images/logo-dark.png')}}" alt="" height="17">
+                                    <img src="{{asset('assets/images/yy.png')}}" alt="" height="70">
                                 </span>
                             </a>
 
-                            <a href="index-2.html" class="logo logo-light">
+                            <a href="{{ url('/staff/home') }}" class="logo logo-light">
                                 <span class="logo-sm">
-                                    <img src="{{asset('assets/images/logo-light.svg')}}" alt="" height="22">
+                                    <img src="{{asset('assets/images/yy.png')}}" alt="" height="30">
                                 </span>
                                 <span class="logo-lg">
-                                    <img src="{{asset('assets/images/logo-light.png')}}" alt="" height="19">
+                                    <img src="{{asset('assets/images/yy.png')}}" alt="" height="70">
                                 </span>
                             </a>
                         </div>
@@ -88,8 +88,6 @@
                                 <i class="mdi mdi-chevron-down d-none d-xl-inline-block"></i>
                             </button>
                             <div class="dropdown-menu dropdown-menu-end">
-                                <!-- item-->
-                                <div class="dropdown-divider"></div>
                                 <a href="{{ url('/staff/logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();" class="dropdown-item text-danger" href="#"><i class="bx bx-power-off font-size-16 align-middle me-1 text-danger"></i> <span key="t-logout">Logout</span></a>
                                 <form id="logout-form" action="{{ url('/staff/logout') }}" method="POST" style="display: none;">{{ csrf_field() }}</form>
                             </div>

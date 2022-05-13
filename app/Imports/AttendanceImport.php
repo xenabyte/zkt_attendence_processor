@@ -24,6 +24,8 @@ class AttendanceImport implements ToCollection
             if($key > 0){
                 $tauStaffId = 'TAU/'.$value[0];
                 $date = carbon::parse($value[2]);
+                $year = carbon::parse($value[2])->format('Y');
+                $month = carbon::parse($value[2])->format('M');
                 $clockIn = $value[3];
                 $clockOut = $value[4];
 
@@ -52,6 +54,8 @@ class AttendanceImport implements ToCollection
                     $newAttendance = ([
                         'staff_id' => $staff->id,
                         'date' => $date,
+                        'year' => $year,
+                        'month' => $month,
                         'clock_in' => $clockIn,
                         'clock_out' => $clockOut,
                         'status' => $status,

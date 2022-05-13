@@ -39,8 +39,18 @@ class HomeController extends Controller
     {
         $staffs = Staff::with('attendance');
 
+        $startDateOfPresentMonth = Carbon::now()->startOfMonth();
+        $today = Carbon::now();
+        $diff = $startDateOfPresentMonth->diffInDays($today);
+        $weekendDays = $startDateOfPresentMonth->diffInDaysFiltered(function(Carbon $date) {
+            return $date->isWeekend();
+        }, $today);
+
+        $workingDays = $diff - $weekendDays;
+
         return view('admin.home', [
-            'staffs' => $staffs
+            'staffs' => $staffs,
+            'workingDays' => $workingDays,
         ]);
     }
 
@@ -107,8 +117,55 @@ class HomeController extends Controller
         $staff = Staff::find($staffId);
 
         return view('admin.pastAttendance', [
-            'staff' => $Staff
+            'staff' => $staff
         ]);
+    }
+
+    public function pastAttendanceRecords (Request $request){
+        $staffId = $request->staffId;
+        $dateMonth = $request->dateMonth;
+
+        $year = Carbon::parse($dateMonth)->format('Y');
+        $month = Carbon::parse($dateMonth)->format('M');
+
+        $staff = Staff::find($staffId);
+
+        $attendances = Attendance::where('staff_id', $staffId)->where('year', $year)->where('month', $month)->get();
+        $totalPresentdays = Attendance::where('staff_id', $staffId)->where('year', $year)->where('month', $month)->where('status', 1)->count();
+
+        return view('admin.pastAttendance', [
+            'staff' => $staff,
+            'year' => $year,
+            'month' => $month,
+            'attendances' => $attendances,
+            'totalPresentdays' => $totalPresentdays,
+        ]);
+
+    }
+
+    public function pastGeneralAttendanceRecords(Request $request){
+        $dateMonth = $request->dateMonth;
+        $year = Carbon::parse($dateMonth)->format('Y');
+        $month = Carbon::parse($dateMonth)->format('M');
+        $staffRecords = Staff::all();
+        $staffs = array();
+        foreach ($staffRecords as $staffRecord){
+            $staff = $staffRecord;
+            $staffId = $staffRecord->id;
+
+            $attendance = Attendance::where('staff_id', $staffId)->where('year', $year)->where('month', $month)->get();
+            $staff->attendance = $attendance;
+
+            $staffs[] = $staff;
+        }
+
+
+        return view('admin.staffs', [
+            'staffs' => $staffs,
+            'year' => $year,
+            'month' => $month
+        ]);
+
     }
 
     public function updateAttendance($attendanceId)

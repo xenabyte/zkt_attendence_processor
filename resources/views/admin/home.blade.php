@@ -52,7 +52,7 @@
                     <div class="mb-4">
                         <i class="bx bx-time-five text-primary display-4"></i>
                     </div>
-                    <h3>{{date('d') - 1 }} Days</h3>
+                    <h3>{{$workingDays - 1 }} Days</h3>
                     <p></p>
                     <p>Today's date is {{date('d D M, Y') }}</p>
                 </div>
@@ -128,7 +128,7 @@
             <div class="card-body">
 
                 <h4 class="card-title">Upload Attendance</h4>
-                <p class="card-title-desc">Upload attendance file extracted from attendance capturing device <br><span class="text-danger"><strong>Note:</strong> Only .xls file allowed.</p>
+                <p class="card-title-desc">Upload attendance file extracted from attendance capturing device <br><span class="text-danger"><strong>Note:</strong> Only .xlsx file allowed.</p>
                 </p>
 
                 <div>

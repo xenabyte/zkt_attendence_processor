@@ -90,8 +90,8 @@ class HomeController extends Controller
         $staff->date_of_birth = $request->date_of_birth;
         $staff->password = bcrypt($request->password);
         $staff->job_specification = $request->role;
-        $staff->class = $request->class;
-        $staff->type = $request->type;
+        $staff->class = StaffClass::where('class', $request->class)->value('id');
+        $staff->type = StaffType::where('type', $request->type)->value('id');
         $staff->faculty = $request->faculty;
         $staff->department = $request->dept;
         $staff->image = $imageUrl;

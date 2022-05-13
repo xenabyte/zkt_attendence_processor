@@ -6,6 +6,8 @@ use App\Notifications\StaffResetPassword;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
+use Carbon\Carbon;
+
 class Staff extends Authenticatable
 {
     use Notifiable;
@@ -60,6 +62,8 @@ class Staff extends Authenticatable
      */
     public function attendance()
     {
-        return $this->hasMany(Attendance::class, 'staff_id')->where('status', 1);
+        return $this->hasMany(Attendance::class, 'staff_id')->where('status', 1)->where('month', Carbon::now()->format('M'));
     }
+
+    
 }

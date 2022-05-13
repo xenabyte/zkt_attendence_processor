@@ -21,9 +21,25 @@
             <div class="card-body">
 
                 <h4 class="card-title">All Staff Records</h4>
-                <p class="card-title-desc">All Staff with the present month {{ date('M Y') }} Attendance Records</p>
+                <p class="card-title-desc">All Staff with the month  of {{ empty($year)? date('M Y') : $month .' '. $year }}</p> Attendance Records</p>
                 </p>
                 <hr>
+
+                <h5 class="card-title mb-4">Query Past Records</h5>
+                    <form class="row gy-2 gx-3 align-items-center" method="post" action="{{ url('/admin/pastGeneralAttendanceRecords') }}">
+                        @csrf
+                        <label>Select Month and Year</label>
+                        <div class="hstack gap-3">
+                            <input class="form-control me-auto" type="month" name="dateMonth" required  min="2022-03" placeholder="Pick month and year"
+                                aria-label="Pick month and year">
+                            <button type="submit" class="btn btn-secondary">Submit</button>
+                            <div class="vr"></div>
+                            <button type="reset " class="btn btn-outline-danger">Reset</button>
+                        </div>
+                    </form>
+                    <br>
+                    <hr>
+                    <br>
 
                 <table id="datatable-buttons" class="table table-bordered dt-responsive nowrap w-100">
                     <thead>
@@ -33,7 +49,7 @@
                         <th>Position</th>
                         <th>Office</th>
                         <th>Email/Phone Number</th>
-                        <th>Attendance - {{ date('M Y') }}</th>
+                        <th>Attendance -  {{ empty($year)? date('M Y') : $month .' '. $year }}</th>
                         <th>Action</th>
                     </tr>
                     </thead>
@@ -54,7 +70,7 @@
                                     <i class="mdi mdi-dots-horizontal font-size-18"></i>
                                 </a>
                                 <ul class="dropdown-menu dropdown-menu-end">
-                                    <li><a href="{{ url('/admin/monthlyAttendance') }}/{{ $staff->id }}" class="dropdown-item"><i class="mdi mdi-eye font-size-16 text-success me-1"></i> View Attendance</a></li>
+                                    @if(empty($year))<li><a href="{{ url('/admin/monthlyAttendance') }}/{{ $staff->id }}" class="dropdown-item"><i class="mdi mdi-eye font-size-16 text-success me-1"></i> View Attendance</a></li>@endif
                                     <li><a href="{{ url('/admin/pastAttendance') }}/{{ $staff->id }}" class="dropdown-item"><i class="mdi mdi-calendar-search font-size-16 text-info me-1"></i> Past Records Attendance</a></li>
                                 </ul>
                             </div>
