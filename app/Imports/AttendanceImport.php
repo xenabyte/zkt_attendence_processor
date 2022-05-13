@@ -51,6 +51,18 @@ class AttendanceImport implements ToCollection
                     }else{
                         $status = 1;
                     }
+
+                    switch($tauStaffId){
+                        case 'TAU/SSPF/064':
+                            $status = $status != 1 ? 1 : $status;
+                        case 'TAU/SSPF/021':
+                            $status = $status != 1 ? 1 : $status;
+                        case 'TAU/SSPF/020':
+                            $status = $status != 1 ? 1 : $status;
+                        default;
+                        $status = $status;
+                    }
+
                     $newAttendance = ([
                         'staff_id' => $staff->id,
                         'date' => $date,
