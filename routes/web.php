@@ -34,6 +34,9 @@ Route::group(['prefix' => 'admin'], function () {
   Route::get('/home', [App\Http\Controllers\Admin\HomeController::class, 'index']);
   Route::get('/staffs', [App\Http\Controllers\Admin\HomeController::class, 'staffs']);
   Route::post('/uploadAttendance', [App\Http\Controllers\Admin\HomeController::class, 'uploadAttendance'])->name('uploadAttendance');
+  Route::get('/pastAttendance/{staffId}', [App\Http\Controllers\Admin\HomeController::class, 'pastAttendance']);
+  Route::get('/monthlyAttendance/{staffId}', [App\Http\Controllers\Admin\HomeController::class, 'monthlyAttendance']);
+  Route::get('/updateAttendance/{staffId}', [App\Http\Controllers\Admin\HomeController::class, 'updateAttendance']);
 
 });
 

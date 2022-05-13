@@ -52,7 +52,7 @@
                     <div class="mb-4">
                         <i class="bx bx-time-five text-primary display-4"></i>
                     </div>
-                    <h3> Days</h3>
+                    <h3>{{date('d') - 1 }} Days</h3>
                     <p></p>
                     <p>Today's date is {{date('d D M, Y') }}</p>
                 </div>
@@ -67,7 +67,7 @@
                         <div class="d-flex">
                             <div class="flex-grow-1">
                                 <p class="text-muted fw-medium">Total Active Day <small>- {{date('M, Y') }}</small></p>
-                                <h4 class="mb-0">{{ $staffs->count() }}</h4>
+                                <h4 class="mb-0">{{ $workingDays }}</h4>
                             </div>
 
                             <div class="flex-shrink-0 align-self-center">
@@ -87,7 +87,7 @@
                         <div class="d-flex">
                             <div class="flex-grow-1">
                                 <p class="text-muted fw-medium">Days Present <small>- {{date('M, Y') }}</small> </p>
-                                <h4 class="mb-0">{{ $staffs->where('type' , 1)->count() }}</h4>
+                                <h4 class="mb-0">{{ $presentMonthAttendance->where('status', 1)->count() }}</h4>
                             </div>
 
                             <div class="flex-shrink-0 align-self-center ">
@@ -107,7 +107,7 @@
                         <div class="d-flex">
                             <div class="flex-grow-1">
                                 <p class="text-muted fw-medium">Days Absent <small>- {{date('M, Y') }}</small></p>
-                                <h4 class="mb-0">{{ $staffs->where('type' , 2)->count() }}</h4>
+                                <h4 class="mb-0">{{ $absentMonthAttendance }}</h4>
                             </div>
 
                             <div class="flex-shrink-0 align-self-center">
@@ -127,22 +127,34 @@
         <div class="card">
             <div class="card-body">
 
-                <h4 class="card-title">Upload Attendance</h4>
-                <p class="card-title-desc">Upload attendance file extracted from attendance capturing device <br><span class="text-danger"><strong>Note:</strong> Only .xls file allowed.</p>
-                </p>
+                <h4 class="card-title">Attendance <small>- {{date('M, Y') }}</small></h4>
+                <p class="card-title-desc">This Prsent Month Attendance</p>
+                <table id="datatable-buttons" class="table table-bordered dt-responsive nowrap w-100">
+                    <thead>
+                    <tr>
+                        <th>Date</th>
+                        <th>Clock In Time</th>
+                        <th>Clock Out Time</th>
+                        <th></th>
+                    </tr>
+                    </thead>
 
-                <div>
-                    <form action="{{ url('/admin/uploadAttendance') }}"  method="post" enctype="multipart/form-data">
-                        @csrf
-                        <div class="fallback dropzone"">
-                            <input name="file" type="file" required>
-                        </div>
-                       
 
-                        <br>
-                        <button type="submit" class="btn btn-primary waves-effect waves-light">Upload Attendance</button>
-                    </form>
-                </div>
+                    <tbody>
+                    @foreach ($allPresentMonthAttendance as $attendance)
+                    <tr>
+                        <td>{{  \Carbon\Carbon::parse($attendance->date)->format('jS \o\f F, Y') }}</td>
+                        <td>{{ \Carbon\Carbon::parse($attendance->clock_in)->format('H:i A') }}</td>
+                        <td>{{ \Carbon\Carbon::parse($attendance->clock_out)->format('H:i A') }}</td>
+                        <td>
+                            <button type="button" class="btn btn-{{$attendance->status == null ? 'danger': $attendance->status == 0 ? 'warning' : 'success'}} btn-sm btn-rounded">
+                                {{$attendance->status == null ? 'Danger': $attendance->status == 0 ? 'Pending' : 'Success'}}
+                            </button>
+                        </td>
+                    </tr>
+                    @endforeach
+                    </tbody>
+                </table>
             </div>
         </div>
     </div>

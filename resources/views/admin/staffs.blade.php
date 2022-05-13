@@ -48,7 +48,17 @@
                         <td>{{ $staff->faculty .'/'. $staff->department }}</td>
                         <td>{{ $staff->email .'/'. $staff->phone_number }}</td>
                         <td>{{ $staff->attendance->count() }}</td>
-                        <td></td>
+                        <td>
+                            <div class="dropdown">
+                                <a href="#" class="dropdown-toggle card-drop" data-bs-toggle="dropdown" aria-expanded="false">
+                                    <i class="mdi mdi-dots-horizontal font-size-18"></i>
+                                </a>
+                                <ul class="dropdown-menu dropdown-menu-end">
+                                    <li><a href="{{ url('/admin/monthlyAttendance') }}/{{ $staff->id }}" class="dropdown-item"><i class="mdi mdi-eye font-size-16 text-success me-1"></i> View Attendance</a></li>
+                                    <li><a href="{{ url('/admin/pastAttendance') }}/{{ $staff->id }}" class="dropdown-item"><i class="mdi mdi-calendar-search font-size-16 text-info me-1"></i> Past Records Attendance</a></li>
+                                </ul>
+                            </div>
+                        </td>
                     </tr>
                     @endforeach
                     </tbody>

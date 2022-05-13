@@ -87,4 +87,38 @@ class HomeController extends Controller
         return redirect()->back();
     }
 
+    public function monthlyAttendance($staffId)
+    {
+        $startDateOfPresentMonth = Carbon::now()->startOfMonth();
+        $endDateOfPresentMonth = Carbon::now()->endOfMonth();
+
+        $monthAttendance = Attendance::where('staff_id', $staffId)->whereBetween('date', [$startDateOfPresentMonth, $endDateOfPresentMonth])->get();
+        $staff = Staff::find($staffId);
+
+
+        return view('admin.monthlyAttendance', [
+            'monthAttendance' => $monthAttendance,
+            'staff' => $staff
+        ]);
+    } 
+
+    public function pastAttendance($staffId)
+    {
+        $staff = Staff::find($staffId);
+
+        return view('admin.pastAttendance', [
+            'staff' => $Staff
+        ]);
+    }
+
+    public function updateAttendance($attendanceId)
+    {
+        $startDateOfPresentMonth = Carbon::now()->startOfMonth();
+        $endDateOfPresentMonth = Carbon::now()->endOfMonth();
+
+        $attendance = Attendance::where('id', $attendanceId)->update(['status' => 1]);
+        
+        alert()->success('Good', 'Attendance Update successfully')->persistent('Close');
+        return redirect()->back();
+    }
 }

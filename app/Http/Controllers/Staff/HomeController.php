@@ -35,12 +35,26 @@ class HomeController extends Controller
 
     public function index()
     {
-        $staffs = Staff::with('attendance');
+        $staffId = Auth::guard('staff')->user()->id;
+        $startDateOfPresentMonth = Carbon::now()->startOfMonth();
+        $endDateOfPresentMonth = Carbon::now()->endOfMonth();
+        $daysOfPresentMonth = Carbon::now()->daysInMonth;
+        $weekendDays = $startDateOfPresentMonth->diffInDaysFiltered(function(Carbon $date) {
+            return $date->isWeekend();
+        }, $endDateOfPresentMonth);
 
-        $tauStaffId = Auth::guard('staff')->user()->tau_staff_id;
+        $workingDays = $daysOfPresentMonth - $weekendDays;
+        //count attendance for present month
+        $allPresentMonthAttendance = Attendance::where('staff_id', $staffId)->whereBetween('date', [$startDateOfPresentMonth, $endDateOfPresentMonth])->get();
+        $presentMonthAttendance = Attendance::where('staff_id', $staffId)->where('status', 1)->whereBetween('date', [$startDateOfPresentMonth, $endDateOfPresentMonth])->get();
+        $absentMonthAttendance = Attendance::where('staff_id', $staffId)->where('status', 0)->whereBetween('date', [$startDateOfPresentMonth, $endDateOfPresentMonth])->count();
+        
 
         return view('staff.home', [
-            'staffs' => $staffs
+            'presentMonthAttendance' => $presentMonthAttendance,
+            'absentMonthAttendance' => $absentMonthAttendance,
+            'workingDays' => $workingDays,
+            'allPresentMonthAttendance' => $allPresentMonthAttendance
         ]);
     }
 
