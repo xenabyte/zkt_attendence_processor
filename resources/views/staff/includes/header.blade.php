@@ -123,6 +123,13 @@
                             </li>
 
                             <li>
+                                <a href="{{ url('/staff/leaveDays') }}" class="waves-effect">
+                                    <i class="mdi mdi-calendar-end"></i>
+                                    <span key="t-dashboards">Leave Days</span>
+                                </a>
+                            </li>
+
+                            <li>
                                 <a href="{{ url('/staff/logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();" class="waves-effect">
                                     <i class="bx bx-power-off"></i>
                                     <span key="t-dashboards">Logout</span>

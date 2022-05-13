@@ -127,6 +127,20 @@
                             </li>
 
                             <li>
+                                <a href="{{ url('/admin/holiday') }}" class="waves-effect">
+                                    <i class="mdi mdi-calendar-star"></i>
+                                    <span key="t-dashboards">Holidays</span>
+                                </a>
+                            </li>
+
+                            <li>
+                                <a href="{{ url('/admin/leaveAplication') }}" class="waves-effect">
+                                    <i class="mdi mdi-calendar-multiple-check"></i>
+                                    <span key="t-dashboards">Leave Application</span>
+                                </a>
+                            </li>
+
+                            <li>
                                 <a href="{{ url('/admin/logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();" class="waves-effect">
                                     <i class="bx bx-power-off"></i>
                                     <span key="t-dashboards">Logout</span>

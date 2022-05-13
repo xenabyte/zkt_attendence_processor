@@ -59,4 +59,6 @@ Route::group(['prefix' => 'staff'], function () {
 
   Route::get('/home', [App\Http\Controllers\Staff\HomeController::class, 'index']);
   Route::get('/attendance', [App\Http\Controllers\Staff\HomeController::class, 'Attendance']);
+  Route::get('/leaveDays', [App\Http\Controllers\Staff\HomeController::class, 'leaveDays']);
+  Route::get('/applyLeaveDays', [App\Http\Controllers\Staff\HomeController::class, 'appyLeaveDays']);
 });
