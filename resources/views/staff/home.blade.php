@@ -147,8 +147,8 @@
                         <td>{{ \Carbon\Carbon::parse($attendance->clock_in)->format('H:i A') }}</td>
                         <td>{{ \Carbon\Carbon::parse($attendance->clock_out)->format('H:i A') }}</td>
                         <td>
-                            <button type="button" class="btn btn-{{$attendance->status == null ? 'danger': $attendance->status == 0 ? 'warning' : 'success'}} btn-sm btn-rounded">
-                                {{$attendance->status == null ? 'Danger': $attendance->status == 0 ? 'Pending' : 'Success'}}
+                            <button type="button" class="btn btn-{{$attendance->status == 0 ? 'danger': $attendance->status == 1 ? 'warning' : 'success'}} btn-sm btn-rounded">
+                                {{$attendance->status == 0 ? 'Absent': $attendance->status == 1 ? 'Awaiting ClockIn/ClockOut' : 'Success'}}
                             </button>
                         </td>
                     </tr>

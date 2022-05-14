@@ -43,9 +43,9 @@ class HomeController extends Controller
         //count attendance for present month
         $startDateOfPresentMonth = Carbon::now()->startOfMonth();
         $endDateOfPresentMonth = Carbon::now()->endOfMonth();
-        $allPresentMonthAttendance = Attendance::where('staff_id', $staffId)->whereBetween('date', [$startDateOfPresentMonth, $endDateOfPresentMonth])->get();
-        $presentMonthAttendance = Attendance::where('staff_id', $staffId)->where('status', 1)->whereBetween('date', [$startDateOfPresentMonth, $endDateOfPresentMonth])->get();
-        $absentMonthAttendance = Attendance::where('staff_id', $staffId)->where('status', 0)->whereBetween('date', [$startDateOfPresentMonth, $endDateOfPresentMonth])->count();
+        $allPresentMonthAttendance = Attendance::with('leave')->where('staff_id', $staffId)->whereBetween('date', [$startDateOfPresentMonth, $endDateOfPresentMonth])->get();
+        $presentMonthAttendance = Attendance::with('leave')->where('staff_id', $staffId)->where('status', 1)->whereBetween('date', [$startDateOfPresentMonth, $endDateOfPresentMonth])->get();
+        $absentMonthAttendance = Attendance::with('leave')->where('staff_id', $staffId)->where('status', 0)->whereBetween('date', [$startDateOfPresentMonth, $endDateOfPresentMonth])->count();
         
 
         return view('staff.home', [
@@ -60,7 +60,7 @@ class HomeController extends Controller
     public function attendance()
     {
         $staffId = Auth::guard('staff')->user()->id;
-        $attendances = Attendance::where('staff_id', $staffId)->orderBy('date')->get();
+        $attendances = Attendance::with('leave')->where('staff_id', $staffId)->orderBy('date')->get();
 
         return view('staff.attendance', [
             'attendances' => $attendances

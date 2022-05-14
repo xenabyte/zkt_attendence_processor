@@ -10,6 +10,7 @@ use App\Models\Staff;
 
 use Log;
 use Carbon\Carbon;
+use App\Models\Leave;
 
 class AttendanceImport implements ToCollection
 {
@@ -45,23 +46,37 @@ class AttendanceImport implements ToCollection
                     //add attendance
                     $status = null;
                     if(empty($clockOut) || empty($clockIn)){
-                        $status = 0;
-                    }elseif(empty($clockOut) && empty($clockIn)){
-                        $status = null;
-                    }else{
                         $status = 1;
+                    }elseif(empty($clockOut) && empty($clockIn)){
+                        $status = 0;
+                    }else{
+                        $status = 2;
                     }
 
                     switch($tauStaffId){
                         case 'TAU/SSPF/064':
-                            $status = $status != 1 ? 1 : $status;
+                            $status = $status != 2 ? 2 : $status;
                         case 'TAU/SSPF/021':
-                            $status = $status != 1 ? 1 : $status;
+                            $status = $status != 2 ? 2 : $status;
                         case 'TAU/SSPF/020':
-                            $status = $status != 1 ? 1 : $status;
+                            $status = $status != 2 ? 2 : $status;
                         default;
                         $status = $status;
                     }
+
+                    //check for leave status
+                    $leave = Leave::where('staff_id', $staff->id)->where('status', 1)->first();
+                    $leaveId = Null;
+                    if(!empty($leave)){
+                        $leaveStartDate = Carbon::parse($leave->start_date);
+                        $leaveEndDate = Carbon::parse($leave->end_date);
+
+                        if($date == $leaveStartDate || $date < $leaveEndDate) {
+                            $leaveId = $leave->id;
+                            $status = 2;    
+                        }
+                    }
+                   
 
                     $newAttendance = ([
                         'staff_id' => $staff->id,
@@ -70,6 +85,7 @@ class AttendanceImport implements ToCollection
                         'month' => $month,
                         'clock_in' => $clockIn,
                         'clock_out' => $clockOut,
+                        'leave_id' => $leaveId,
                         'status' => $status,
                     ]);
 

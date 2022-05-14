@@ -27,4 +27,14 @@ class Leave extends Model
     {
         return $this->belongsTo(Staff::class, 'staff_id');
     }
+
+    /**
+     * Get all of the attendance for the Leave
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function attendance()
+    {
+        return $this->hasMany(Attendance::class, 'leave_id');
+    }
 }

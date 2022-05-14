@@ -1,4 +1,5 @@
 @include('admin.includes.header')
+@inject('controller', 'App\Http\Controllers\Controller')
 <!-- start page title -->
 <div class="row">
     <div class="col-12">
@@ -63,7 +64,7 @@
                         <td>{{ $staff->job_specification }}</td>
                         <td>{{ $staff->faculty .'/'. $staff->department }}</td>
                         <td>{{ $staff->email .'/'. $staff->phone_number }}</td>
-                        <td>{{ $staff->attendance->count() }}</td>
+                        <td>{{ $staff->attendance->count() }} Days / {{ $staff->leaveDays }} Leave Days</td>
                         <td>
                             <div class="dropdown">
                                 <a href="#" class="dropdown-toggle card-drop" data-bs-toggle="dropdown" aria-expanded="false">

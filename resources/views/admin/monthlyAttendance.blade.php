@@ -31,6 +31,7 @@
                         <th>Date</th>
                         <th>Clock In Time</th>
                         <th>Clock Out Time</th>
+                        <th>Leave</th>
                         <th>Status</th>
                         <th>Action</th>
                     </tr>
@@ -43,9 +44,10 @@
                         <td>{{  \Carbon\Carbon::parse($attendance->date)->format('jS \o\f F, Y') }}</td>
                         <td>{{ \Carbon\Carbon::parse($attendance->clock_in)->format('h:i A') }}</td>
                         <td>{{ \Carbon\Carbon::parse($attendance->clock_out)->format('h:i A') }}</td>
+                        <td>{{ $attendance->leave? $attendance->leave->purpose : null }}</td>
                         <td>
-                            <button type="button" class="btn btn-{{$attendance->status == null ? 'danger': $attendance->status == 0 ? 'warning' : 'success'}} btn-sm btn-rounded">
-                                {{$attendance->status == null ? 'Danger': $attendance->status == 0 ? 'Pending' : 'Success'}}
+                            <button type="button" class="btn btn-{{$attendance->status == 0 ? 'danger': $attendance->status == 2 ? 'warning' : 'success'}} btn-sm btn-rounded">
+                                {{$attendance->status == 0 ? 'Absent': $attendance->status == 1 ? 'Awaiting ClockIn/ClockOut' : 'Success'}}
                             </button>
                         </td>
                         <td>

@@ -66,6 +66,10 @@ class HomeController extends Controller
             $attendance = Attendance::where('staff_id', $staffId)->where('year', $year)->where('month', $month)->where('status', 1)->get();
             $staff->attendance = $attendance;
 
+            $leaveDays = Attendance::where('staff_id', $staffId)->where('year', $year)->where('month', $month)->where('status', 1)->where('leave_id', '!=', Null)->count();
+            $staff->leaveDays = $leaveDays;
+
+
             $staffs[] = $staff;
         }
 
@@ -116,7 +120,7 @@ class HomeController extends Controller
         $startDateOfPresentMonth = Carbon::now()->startOfMonth();
         $endDateOfPresentMonth = Carbon::now()->endOfMonth();
 
-        $monthAttendance = Attendance::where('staff_id', $staffId)->whereBetween('date', [$startDateOfPresentMonth, $endDateOfPresentMonth])->get();
+        $monthAttendance = Attendance::with('leave')->where('staff_id', $staffId)->whereBetween('date', [$startDateOfPresentMonth, $endDateOfPresentMonth])->get();
         $staff = Staff::find($staffId);
         $pendingLeaveApplicationCount = Leave::where('status', null)->count();
 
@@ -148,8 +152,8 @@ class HomeController extends Controller
 
         $staff = Staff::find($staffId);
 
-        $attendances = Attendance::where('staff_id', $staffId)->where('year', $year)->where('month', $month)->get();
-        $totalPresentdays = Attendance::where('staff_id', $staffId)->where('year', $year)->where('month', $month)->where('status', 1)->count();
+        $attendances = Attendance::with('leave')->where('staff_id', $staffId)->where('year', $year)->where('month', $month)->get();
+        $totalPresentdays = Attendance::with('leave')->where('staff_id', $staffId)->where('year', $year)->where('month', $month)->where('status', 1)->count();
         $pendingLeaveApplicationCount = Leave::where('status', null)->count();
 
         return view('admin.pastAttendance', [
@@ -173,8 +177,11 @@ class HomeController extends Controller
             $staff = $staffRecord;
             $staffId = $staffRecord->id;
 
-            $attendance = Attendance::where('staff_id', $staffId)->where('year', $year)->where('month', $month)->get();
+            $attendance = Attendance::with('leave')->where('staff_id', $staffId)->where('year', $year)->where('month', $month)->get();
             $staff->attendance = $attendance;
+
+            $leaveDays = Attendance::where('staff_id', $staffId)->where('year', $year)->where('month', $month)->where('status', 1)->where('leave_id', '!=', Null)->count();
+            $staff->leaveDays = $leaveDays;
 
             $staffs[] = $staff;
         }

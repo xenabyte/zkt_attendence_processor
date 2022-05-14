@@ -49,8 +49,8 @@
                         <td>{{ \Carbon\Carbon::parse($leave->end_date)->format('jS \o\f F, Y') }}</td>
                         <td>{{ $leave->days }} Days</td>
                         <td>
-                            <button type="button" class="btn btn-{{$leave->status == null ? 'warning': 'success'}} btn-sm btn-rounded">
-                                {{$leave->status == null ? 'Pending': 'Approved'}}
+                            <button type="button" class="btn btn-{{$leave->status == null ? 'warning': $leave->status == 1 ? 'success' : 'primary'}} btn-sm btn-rounded">
+                                {{$leave->status == null ? 'Pending': $leave->status == 1 ? 'Approved' : 'Ended'}}
                             </button>
                         </td>
                         <td>
