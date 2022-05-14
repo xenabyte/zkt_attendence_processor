@@ -54,11 +54,26 @@ class HomeController extends Controller
 
     public function staffs()
     {
-        $Staffs = Staff::with('attendance')->get();
+        $year = Carbon::parse()->format('Y');
+        $month = Carbon::parse()->format('M');
+
+        $staffRecords = Staff::all();
+        $staffs = array();
+        foreach ($staffRecords as $staffRecord){
+            $staff = $staffRecord;
+            $staffId = $staffRecord->id;
+
+            $attendance = Attendance::where('staff_id', $staffId)->where('year', $year)->where('month', $month)->where('status', 1)->get();
+            $staff->attendance = $attendance;
+
+            $staffs[] = $staff;
+        }
+
+
         $pendingLeaveApplicationCount = Leave::where('status', null)->count();
 
         return view('admin.staffs', [
-            'staffs' => $Staffs,
+            'staffs' => $staffs,
             'pendingLeaveApplicationCount' => $pendingLeaveApplicationCount,
         ]);
     }
@@ -211,7 +226,7 @@ class HomeController extends Controller
         $leave->status = $request->status;
 
         if($leave->save()){
-            alert()->success('Good', 'Attendance Update successfully')->persistent('Close');
+            alert()->success('Good', 'Leave Update successfully')->persistent('Close');
             return redirect()->back();
         }
 
@@ -231,8 +246,58 @@ class HomeController extends Controller
     }
 
     public function addHoliday(Request $request) {
+        $validator = Validator::make($request->all(), [
+            'purpose' => 'required',
+            'start_date' => 'required',
+            'end_date' => 'required',
+        ]);
 
 
+        if($validator->fails()) {
+            alert()->error('Error', $validator->messages()->all()[0])->persistent('Close');
+            return redirect()->back();
+        }
+        
+        $startDate = Carbon::parse($request->start_date);
+        $endDate = Carbon::parse($request->end_date);
+
+        if($startDate == $endDate || $startDate > $endDate) {
+            alert()->error('Error', 'Invalid holiday, review holiday starting date and resumption date')->persistent('Close');
+            return redirect()->back();
+        }
+
+        $days = $startDate->diffInDays($endDate) - $this->countWeekendDays($startDate, $endDate);
+
+        $newHoliday = ([
+            'purpose' => $request->purpose,
+            'start_date' => $request->start_date,
+            'end_date' => $request->end_date,
+            'days' => $days,
+        ]);
+
+        if(Holiday::create($newHoliday)){
+            alert()->success('Success', 'Holiday Created Successfully')->persistent('Close');
+            return redirect()->back();
+        }
+
+        alert()->error('Error', 'Error Creating Holiday, Report to Administrator')->persistent('Close');
+        return redirect()->back();
+
+    }
+
+    public function deleteHoliday(Request $request){
+        if(!$holiday = Holiday::find($request->holidayId)){
+            alert()->error('Error', 'Invalid Holiday')->persistent('Close');
+            return redirect()->back();
+        }
+
+        if($holiday->delete()){
+            alert()->success('Good', 'Holiday deleted successfully')->persistent('Close');
+            return redirect()->back();
+        }
+
+        alert()->error('Error', 'Invalid Holiday')->persistent('Close');
+        return redirect()->back();
     }
 
 }

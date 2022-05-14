@@ -35,7 +35,8 @@
                         <th>Start Date</th>
                         <th>Resumption Date</th>
                         <th>Total Days</th>
-                        <th></th>
+                        <th>Status</th>
+                        <th>Action</th>
                     </tr>
                     </thead>
 
@@ -51,6 +52,17 @@
                             <button type="button" class="btn btn-{{$leave->status == null ? 'warning': 'success'}} btn-sm btn-rounded">
                                 {{$leave->status == null ? 'Pending': 'Approved'}}
                             </button>
+                        </td>
+                        <td>
+                            @if(empty($leave->status))
+                            <form method="post" action="{{ url('/staff/deleteLeave') }}">
+                                @csrf
+                                <input type="hidden" name="leaveId" value="{{ $leave->id }}">
+                                <button type="submit" class="btn btn-danger waves-effect waves-light">
+                                  <i class="mdi mdi-trash-can"></i>
+                                </button>
+                            </form>
+                            @endif
                         </td>
                     </tr>
                     @endforeach

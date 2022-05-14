@@ -96,7 +96,7 @@ class HomeController extends Controller
         $startDate = Carbon::parse($request->start_date);
         $endDate = Carbon::parse($request->end_date);
 
-        if($startDate == $endDate) {
+        if($startDate == $endDate || $startDate > $endDate) {
             alert()->error('Error', 'Invalid leave application, review your leave starting date and resumption date')->persistent('Close');
             return redirect()->back();
         }
@@ -119,5 +119,20 @@ class HomeController extends Controller
         alert()->error('Error', 'Error Submitting Leave Application, Report to Administrator')->persistent('Close');
         return redirect()->back();
 
+    }
+
+    public function deleteLeave(Request $request){
+        if(!$holiday = Leave::where('id', $request->holidayId)->where('status', null)->first()) {
+            alert()->error('Error', 'Invalid Leave')->persistent('Close');
+            return redirect()->back();
+        }
+
+        if($holiday->delete()){
+            alert()->success('Good', 'Leave deleted successfully')->persistent('Close');
+            return redirect()->back();
+        }
+
+        alert()->error('Error', 'Invalid Leave')->persistent('Close');
+        return redirect()->back();
     }
 }

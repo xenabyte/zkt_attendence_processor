@@ -45,6 +45,7 @@ Route::group(['prefix' => 'admin'], function () {
 
   Route::get('/holiday', [App\Http\Controllers\Admin\HomeController::class, 'holiday']);
   Route::post('/addHoliday', [App\Http\Controllers\Admin\HomeController::class, 'addHoliday']);
+  Route::post('/deleteHoliday', [App\Http\Controllers\Admin\HomeController::class, 'deleteHoliday']);
 
   
 
@@ -68,4 +69,6 @@ Route::group(['prefix' => 'staff'], function () {
   Route::get('/attendance', [App\Http\Controllers\Staff\HomeController::class, 'Attendance']);
   Route::get('/leaveDays', [App\Http\Controllers\Staff\HomeController::class, 'leaveDays']);
   Route::post('/applyLeaveDays', [App\Http\Controllers\Staff\HomeController::class, 'applyLeaveDays']);
+  Route::post('/deleteLeave', [App\Http\Controllers\Staff\HomeController::class, 'deleteLeave']);
+
 });
