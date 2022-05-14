@@ -39,18 +39,11 @@ class HomeController extends Controller
     {
         $staffs = Staff::with('attendance');
 
-        $startDateOfPresentMonth = Carbon::now()->startOfMonth();
-        $today = Carbon::now();
-        $diff = $startDateOfPresentMonth->diffInDays($today);
-        $weekendDays = $startDateOfPresentMonth->diffInDaysFiltered(function(Carbon $date) {
-            return $date->isWeekend();
-        }, $today);
-
-        $workingDays = $diff - $weekendDays;
+        $capturedWorkingDays = $this->capturedWorkingDays();
 
         return view('admin.home', [
             'staffs' => $staffs,
-            'workingDays' => $workingDays,
+            'capturedWorkingDays' => $capturedWorkingDays,
         ]);
     }
 
@@ -178,4 +171,24 @@ class HomeController extends Controller
         alert()->success('Good', 'Attendance Update successfully')->persistent('Close');
         return redirect()->back();
     }
+
+    public function leaveApplication() {
+
+        return view('admin.leaveApplication');
+    }
+
+    public function manageLeaveApplication(Request $request) {
+
+
+    }
+
+    public function holiday() {
+        return view('admin.holiday');
+    }
+
+    public function addHoliday(Request $request) {
+
+
+    }
+
 }

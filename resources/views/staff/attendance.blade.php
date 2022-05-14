@@ -44,7 +44,7 @@
                         <td>{{ \Carbon\Carbon::parse($attendance->clock_out)->format('H:i A') }}</td>
                         <td>
                             <button type="button" class="btn btn-{{$attendance->status == null ? 'danger': $attendance->status == 0 ? 'warning' : 'success'}} btn-sm btn-rounded">
-                                {{$attendance->status == null ? 'Danger': $attendance->status == 0 ? 'Pending' : 'Success'}}
+                                {{$attendance->status == null ? 'Absent': $attendance->status == 0 ? 'Pending' : 'Success'}}
                             </button>
                         </td>
                     </tr>
@@ -56,4 +56,4 @@
     </div> <!-- end col -->
 </div> <!-- end row -->
 
-@include('admin.includes.footer')
+@include('staff.includes.footer')

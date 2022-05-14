@@ -55,15 +55,20 @@ class HomeController extends Controller
 
         $tauStaffId = $request->tau_staff_id;
 
-        if (strpos($tauStaffId, 'TAU/') == false) {
-            alert()->error('Error', 'Invalid Staff ID')->persistent('Close');
+        if(empty(strpos($tauStaffId, 'AU/'))) {
+            alert()->error('Error', 'Invalid staff ID, please kindly follow the format')->persistent('Close');
+            return redirect()->back();
+        }
+
+        if(empty(strpos($request->email, 'tau.edu.ng'))) {
+            alert()->error('Error', 'Invalid Staff Email')->persistent('Close');
             return redirect()->back();
         }
         
         //get staff information
         $staff = Staff::where('tau_staff_id', $tauStaffId)->first();
         if(!$staff){
-            alert()->error('Error', 'Invalid Staff ID')->persistent('Close');
+            alert()->error('Error', 'Invalid staff ID, no staff record found')->persistent('Close');
             return redirect()->back();
         }
 

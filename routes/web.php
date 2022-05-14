@@ -39,6 +39,13 @@ Route::group(['prefix' => 'admin'], function () {
   Route::post('/pastGeneralAttendanceRecords', [App\Http\Controllers\Admin\HomeController::class, 'pastGeneralAttendanceRecords']);
   Route::get('/monthlyAttendance/{staffId}', [App\Http\Controllers\Admin\HomeController::class, 'monthlyAttendance']);
   Route::get('/updateAttendance/{staffId}', [App\Http\Controllers\Admin\HomeController::class, 'updateAttendance']);
+
+  Route::get('/leaveApplication', [App\Http\Controllers\Admin\HomeController::class, 'leaveApplication']);
+  Route::post('/manageLeaveApplication', [App\Http\Controllers\Admin\HomeController::class, 'pastGeneralAttendanceRecords']);
+
+  Route::get('/holiday', [App\Http\Controllers\Admin\HomeController::class, 'holiday']);
+  Route::post('/addHoliday', [App\Http\Controllers\Admin\HomeController::class, 'addHoliday']);
+
   
 
 });

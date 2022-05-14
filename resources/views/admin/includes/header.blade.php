@@ -134,7 +134,7 @@
                             </li>
 
                             <li>
-                                <a href="{{ url('/admin/leaveAplication') }}" class="waves-effect">
+                                <a href="{{ url('/admin/leaveApplication') }}" class="waves-effect">
                                     <i class="mdi mdi-calendar-multiple-check"></i>
                                     <span key="t-dashboards">Leave Application</span>
                                 </a>

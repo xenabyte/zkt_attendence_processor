@@ -52,7 +52,7 @@
                     <div class="mb-4">
                         <i class="bx bx-time-five text-primary display-4"></i>
                     </div>
-                    <h3>{{date('d') - 1 }} Days</h3>
+                    <h3>{{$capturedWorkingDays - 1 }} Days</h3>
                     <p></p>
                     <p>Today's date is {{date('d D M, Y') }}</p>
                 </div>

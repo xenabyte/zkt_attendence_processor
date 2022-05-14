@@ -36,15 +36,11 @@ class HomeController extends Controller
     public function index()
     {
         $staffId = Auth::guard('staff')->user()->id;
+        $workingDays = $this->workingDays();
+        $capturedWorkingDays = $this->capturedWorkingDays();
+        //count attendance for present month
         $startDateOfPresentMonth = Carbon::now()->startOfMonth();
         $endDateOfPresentMonth = Carbon::now()->endOfMonth();
-        $daysOfPresentMonth = Carbon::now()->daysInMonth;
-        $weekendDays = $startDateOfPresentMonth->diffInDaysFiltered(function(Carbon $date) {
-            return $date->isWeekend();
-        }, $endDateOfPresentMonth);
-
-        $workingDays = $daysOfPresentMonth - $weekendDays;
-        //count attendance for present month
         $allPresentMonthAttendance = Attendance::where('staff_id', $staffId)->whereBetween('date', [$startDateOfPresentMonth, $endDateOfPresentMonth])->get();
         $presentMonthAttendance = Attendance::where('staff_id', $staffId)->where('status', 1)->whereBetween('date', [$startDateOfPresentMonth, $endDateOfPresentMonth])->get();
         $absentMonthAttendance = Attendance::where('staff_id', $staffId)->where('status', 0)->whereBetween('date', [$startDateOfPresentMonth, $endDateOfPresentMonth])->count();
@@ -54,7 +50,8 @@ class HomeController extends Controller
             'presentMonthAttendance' => $presentMonthAttendance,
             'absentMonthAttendance' => $absentMonthAttendance,
             'workingDays' => $workingDays,
-            'allPresentMonthAttendance' => $allPresentMonthAttendance
+            'allPresentMonthAttendance' => $allPresentMonthAttendance,
+            'capturedWorkingDays' => $capturedWorkingDays,
         ]);
     }
 
@@ -66,5 +63,15 @@ class HomeController extends Controller
         return view('staff.attendance', [
             'attendances' => $attendances
         ]);
+    }
+
+    public function leaveDays() {
+
+        return view('staff.leaveDays');
+    }
+
+    public function applyLeaveDays(Request $request) {
+
+
     }
 }
