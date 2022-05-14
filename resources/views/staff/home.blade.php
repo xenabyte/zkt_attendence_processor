@@ -87,7 +87,7 @@
                         <div class="d-flex">
                             <div class="flex-grow-1">
                                 <p class="text-muted fw-medium">Days Present <small>- {{date('M, Y') }}</small> </p>
-                                <h4 class="mb-0">{{ $presentMonthAttendance->where('status', 1)->count() }}</h4>
+                                <h4 class="mb-0">{{ $presentMonthAttendance->where('status', 2)->count() }}</h4>
                             </div>
 
                             <div class="flex-shrink-0 align-self-center ">
@@ -144,12 +144,22 @@
                     @foreach ($allPresentMonthAttendance as $attendance)
                     <tr>
                         <td>{{  \Carbon\Carbon::parse($attendance->date)->format('jS \o\f F, Y') }}</td>
-                        <td>{{ \Carbon\Carbon::parse($attendance->clock_in)->format('H:i A') }}</td>
-                        <td>{{ \Carbon\Carbon::parse($attendance->clock_out)->format('H:i A') }}</td>
+                        <td>{{ \Carbon\Carbon::parse($attendance->clock_in)->format('h:i A') }}</td>
+                        <td>{{ \Carbon\Carbon::parse($attendance->clock_out)->format('h:i A') }}</td>
                         <td>
-                            <button type="button" class="btn btn-{{$attendance->status == 0 ? 'danger': $attendance->status == 1 ? 'warning' : 'success'}} btn-sm btn-rounded">
-                                {{$attendance->status == 0 ? 'Absent': $attendance->status == 1 ? 'Awaiting ClockIn/ClockOut' : 'Success'}}
+                            @if($attendance->status == 2)
+                            <button type="button" class="btn btn-success btn-sm btn-rounded">
+                                Present
                             </button>
+                            @elseif($attendance->status == 1)
+                            <button type="button" class="btn btn-warning btn-sm btn-rounded">
+                                Awaiting ClockIn/ClockOut
+                            </button>
+                            @else
+                            <button type="button" class="btn btn-danger btn-sm btn-rounded">
+                              Absent
+                            </button>
+                            @endif
                         </td>
                     </tr>
                     @endforeach

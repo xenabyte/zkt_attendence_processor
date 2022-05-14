@@ -58,9 +58,19 @@
                             <td>{{ \Carbon\Carbon::parse($attendance->clock_in)->format('H:i A') }}</td>
                             <td>{{ \Carbon\Carbon::parse($attendance->clock_out)->format('H:i A') }}</td>
                             <td>
-                                <button type="button" class="btn btn-{{$attendance->status == 0 ? 'danger': $attendance->status == 1 ? 'warning' : 'success'}} btn-sm btn-rounded">
-                                    {{$attendance->status == 0 ? 'Absent': $attendance->status == 1 ? 'Awaiting ClockIn/ClockOut' : 'Success'}}
+                                @if($attendance->status == 2)
+                                <button type="button" class="btn btn-success btn-sm btn-rounded">
+                                    Present
                                 </button>
+                                @elseif($attendance->status == 1)
+                                <button type="button" class="btn btn-warning btn-sm btn-rounded">
+                                    Awaiting ClockIn/ClockOut
+                                </button>
+                                @else
+                                <button type="button" class="btn btn-danger btn-sm btn-rounded">
+                                Absent
+                                </button>
+                                @endif
                             </td>
                             <td>
                                 <div class="dropdown">

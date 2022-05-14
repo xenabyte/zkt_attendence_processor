@@ -64,7 +64,7 @@
                         <td>{{ $staff->job_specification }}</td>
                         <td>{{ $staff->faculty .'/'. $staff->department }}</td>
                         <td>{{ $staff->email .'/'. $staff->phone_number }}</td>
-                        <td>{{ $staff->attendance->count() }} Days / {{ $staff->leaveDays }} Leave Days</td>
+                        <td>{{ $staff->attendance->count() }} Days</td>
                         <td>
                             <div class="dropdown">
                                 <a href="#" class="dropdown-toggle card-drop" data-bs-toggle="dropdown" aria-expanded="false">

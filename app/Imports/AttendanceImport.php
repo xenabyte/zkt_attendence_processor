@@ -45,13 +45,15 @@ class AttendanceImport implements ToCollection
                 if(empty($checkAttendance)){
                     //add attendance
                     $status = null;
-                    if(empty($clockOut) || empty($clockIn)){
-                        $status = 1;
-                    }elseif(empty($clockOut) && empty($clockIn)){
+                    if(empty($clockOut) && empty($clockIn)){
                         $status = 0;
+                    }elseif(empty($clockOut) || empty($clockIn)){ 
+                        $status = 1;
                     }else{
                         $status = 2;
                     }
+
+                    log::info('Staff ID:'. $status);
 
                     switch($tauStaffId){
                         case 'TAU/SSPF/064':
