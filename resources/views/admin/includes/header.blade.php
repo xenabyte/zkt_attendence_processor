@@ -135,7 +135,7 @@
 
                             <li>
                                 <a href="{{ url('/admin/leaveApplication') }}" class="waves-effect">
-                                    <i class="mdi mdi-calendar-multiple-check"></i>
+                                    <i class="mdi mdi-calendar-multiple-check"></i>@if($pendingLeaveApplicationCount > 0)<span class="badge rounded-pill bg-danger float-end">{{ $pendingLeaveApplicationCount }}</span>@endif
                                     <span key="t-dashboards">Leave Application</span>
                                 </a>
                             </li>

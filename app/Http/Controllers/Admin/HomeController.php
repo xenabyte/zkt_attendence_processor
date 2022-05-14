@@ -19,6 +19,8 @@ use App\Models\Staff;
 use App\Models\StaffClass;
 use App\Models\StaffType;
 use App\Models\Admin;
+use App\Models\Leave;
+use App\Models\Holiday;
 
 use SweetAlert;
 use Mail;
@@ -40,10 +42,12 @@ class HomeController extends Controller
         $staffs = Staff::with('attendance');
 
         $capturedWorkingDays = $this->capturedWorkingDays();
+        $pendingLeaveApplicationCount = Leave::where('status', null)->count();
 
         return view('admin.home', [
             'staffs' => $staffs,
             'capturedWorkingDays' => $capturedWorkingDays,
+            'pendingLeaveApplicationCount' => $pendingLeaveApplicationCount,
         ]);
     }
 
@@ -51,9 +55,11 @@ class HomeController extends Controller
     public function staffs()
     {
         $Staffs = Staff::with('attendance')->get();
+        $pendingLeaveApplicationCount = Leave::where('status', null)->count();
 
         return view('admin.staffs', [
-            'staffs' => $Staffs
+            'staffs' => $Staffs,
+            'pendingLeaveApplicationCount' => $pendingLeaveApplicationCount,
         ]);
     }
 
@@ -97,20 +103,24 @@ class HomeController extends Controller
 
         $monthAttendance = Attendance::where('staff_id', $staffId)->whereBetween('date', [$startDateOfPresentMonth, $endDateOfPresentMonth])->get();
         $staff = Staff::find($staffId);
+        $pendingLeaveApplicationCount = Leave::where('status', null)->count();
 
 
         return view('admin.monthlyAttendance', [
             'monthAttendance' => $monthAttendance,
-            'staff' => $staff
+            'staff' => $staff,
+            'pendingLeaveApplicationCount' => $pendingLeaveApplicationCount,
         ]);
     } 
 
     public function pastAttendance($staffId)
     {
         $staff = Staff::find($staffId);
+        $pendingLeaveApplicationCount = Leave::where('status', null)->count();
 
         return view('admin.pastAttendance', [
-            'staff' => $staff
+            'staff' => $staff,
+            'pendingLeaveApplicationCount' => $pendingLeaveApplicationCount,
         ]);
     }
 
@@ -125,6 +135,7 @@ class HomeController extends Controller
 
         $attendances = Attendance::where('staff_id', $staffId)->where('year', $year)->where('month', $month)->get();
         $totalPresentdays = Attendance::where('staff_id', $staffId)->where('year', $year)->where('month', $month)->where('status', 1)->count();
+        $pendingLeaveApplicationCount = Leave::where('status', null)->count();
 
         return view('admin.pastAttendance', [
             'staff' => $staff,
@@ -132,6 +143,7 @@ class HomeController extends Controller
             'month' => $month,
             'attendances' => $attendances,
             'totalPresentdays' => $totalPresentdays,
+            'pendingLeaveApplicationCount' => $pendingLeaveApplicationCount,
         ]);
 
     }
@@ -152,11 +164,13 @@ class HomeController extends Controller
             $staffs[] = $staff;
         }
 
+        $pendingLeaveApplicationCount = Leave::where('status', null)->count();
 
         return view('admin.staffs', [
             'staffs' => $staffs,
             'year' => $year,
-            'month' => $month
+            'month' => $month,
+            'pendingLeaveApplicationCount' => $pendingLeaveApplicationCount,
         ]);
 
     }
@@ -174,16 +188,46 @@ class HomeController extends Controller
 
     public function leaveApplication() {
 
-        return view('admin.leaveApplication');
+        $leaves = Leave::with('staff')->get();
+        $pendingLeaveApplicationCount = Leave::where('status', null)->count();
+
+        return view('admin.leaveApplication', [
+            'leaves' => $leaves,
+            'pendingLeaveApplicationCount' => $pendingLeaveApplicationCount,
+        ]);
     }
 
     public function manageLeaveApplication(Request $request) {
+        if(empty($request->status)){
+            alert()->error('Error', 'Please select and action')->persistent('Close');
+            return redirect()->back();
+        }
 
+        if(!$leave = Leave::find($request->leaveId)){
+            alert()->error('Error', 'Invalid Leave Application')->persistent('Close');
+            return redirect()->back();
+        }
+
+        $leave->status = $request->status;
+
+        if($leave->save()){
+            alert()->success('Good', 'Attendance Update successfully')->persistent('Close');
+            return redirect()->back();
+        }
+
+        alert()->error('Error', 'Invalid Leave Application')->persistent('Close');
+        return redirect()->back();
 
     }
 
     public function holiday() {
-        return view('admin.holiday');
+        $holidays = Holiday::all();
+        $pendingLeaveApplicationCount = Leave::where('status', null)->count();
+
+        return view('admin.holiday', [
+            'holidays' => $holidays,
+            'pendingLeaveApplicationCount' => $pendingLeaveApplicationCount,
+        ]);
     }
 
     public function addHoliday(Request $request) {

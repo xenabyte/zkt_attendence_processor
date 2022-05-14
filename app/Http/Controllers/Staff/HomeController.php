@@ -18,6 +18,8 @@ use App\Models\Attendance;
 use App\Models\Staff;
 use App\Models\StaffClass;
 use App\Models\StaffType;
+use App\Models\Leave;
+use App\Models\Holiday;
 
 use SweetAlert;
 use Mail;
@@ -67,11 +69,55 @@ class HomeController extends Controller
 
     public function leaveDays() {
 
-        return view('staff.leaveDays');
+        $staffId = Auth::guard('staff')->user()->id;
+
+        $leaves = Leave::where('staff_id', $staffId)->get();
+
+        return view('staff.leaveDays', [
+            'leaves' => $leaves,
+        ]);
     }
 
     public function applyLeaveDays(Request $request) {
 
+        $validator = Validator::make($request->all(), [
+            'purpose' => 'required',
+            'start_date' => 'required',
+            'end_date' => 'required',
+        ]);
+
+        $staffId = Auth::guard('staff')->user()->id;
+
+        if($validator->fails()) {
+            alert()->error('Error', $validator->messages()->all()[0])->persistent('Close');
+            return redirect()->back();
+        }
+        
+        $startDate = Carbon::parse($request->start_date);
+        $endDate = Carbon::parse($request->end_date);
+
+        if($startDate == $endDate) {
+            alert()->error('Error', 'Invalid leave application, review your leave starting date and resumption date')->persistent('Close');
+            return redirect()->back();
+        }
+
+        $days = $startDate->diffInDays($endDate) - $this->countWeekendDays($startDate, $endDate);
+
+        $newLeaveApplication = ([
+            'staff_id' => $staffId,
+            'purpose' => $request->purpose,
+            'start_date' => $request->start_date,
+            'end_date' => $request->end_date,
+            'days' => $days,
+        ]);
+
+        if(Leave::create($newLeaveApplication)){
+            alert()->success('Success', 'Leave Application Submitted Successfully')->persistent('Close');
+            return redirect()->back();
+        }
+
+        alert()->error('Error', 'Error Submitting Leave Application, Report to Administrator')->persistent('Close');
+        return redirect()->back();
 
     }
 }

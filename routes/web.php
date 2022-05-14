@@ -41,7 +41,7 @@ Route::group(['prefix' => 'admin'], function () {
   Route::get('/updateAttendance/{staffId}', [App\Http\Controllers\Admin\HomeController::class, 'updateAttendance']);
 
   Route::get('/leaveApplication', [App\Http\Controllers\Admin\HomeController::class, 'leaveApplication']);
-  Route::post('/manageLeaveApplication', [App\Http\Controllers\Admin\HomeController::class, 'pastGeneralAttendanceRecords']);
+  Route::post('/manageLeaveApplication', [App\Http\Controllers\Admin\HomeController::class, 'manageLeaveApplication']);
 
   Route::get('/holiday', [App\Http\Controllers\Admin\HomeController::class, 'holiday']);
   Route::post('/addHoliday', [App\Http\Controllers\Admin\HomeController::class, 'addHoliday']);
@@ -67,5 +67,5 @@ Route::group(['prefix' => 'staff'], function () {
   Route::get('/home', [App\Http\Controllers\Staff\HomeController::class, 'index']);
   Route::get('/attendance', [App\Http\Controllers\Staff\HomeController::class, 'Attendance']);
   Route::get('/leaveDays', [App\Http\Controllers\Staff\HomeController::class, 'leaveDays']);
-  Route::get('/applyLeaveDays', [App\Http\Controllers\Staff\HomeController::class, 'appyLeaveDays']);
+  Route::post('/applyLeaveDays', [App\Http\Controllers\Staff\HomeController::class, 'applyLeaveDays']);
 });

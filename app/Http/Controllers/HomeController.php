@@ -17,6 +17,8 @@ use App\Models\Attendance;
 use App\Models\Staff;
 use App\Models\StaffClass;
 use App\Models\StaffType;
+use App\Models\Leave;
+use App\Models\Holiday;
 
 use SweetAlert;
 use Mail;
