@@ -128,7 +128,7 @@
             <div class="card-body">
 
                 <h4 class="card-title">Attendance <small>- {{date('M, Y') }}</small></h4>
-                <p class="card-title-desc">This Prsent Month Attendance</p>
+                <p class="card-title-desc">This Present Month Attendance</p>
                 <table id="datatable-buttons" class="table table-bordered dt-responsive nowrap w-100">
                     <thead>
                     <tr>
