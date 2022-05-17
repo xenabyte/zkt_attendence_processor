@@ -229,6 +229,7 @@
                                                                     <option value="University Health Center">University Health Center</option>
                                                                     <option value="Registry">Registry</option>
                                                                     <option value="Busary">Busary</option>
+                                                                    <option value="Directoriate of Academic Planning">Directoriate of Academic Planning</option>
                                                                     <option value="Physical Planning and Development">Physical Planning and Development (Works)</option>
                                                                     <option value="Thomas Adewumi University Ventures">Thomas Adewumi University Ventures</option>
                                                                 </select>
