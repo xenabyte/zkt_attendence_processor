@@ -122,12 +122,12 @@ class HomeController extends Controller
     }
 
     public function deleteLeave(Request $request){
-        if(!$holiday = Leave::where('id', $request->holidayId)->where('status', null)->first()) {
+        if(!$leave = Leave::where('id', $request->leaveId)->where('status', null)->first()) {
             alert()->error('Error', 'Invalid Leave')->persistent('Close');
             return redirect()->back();
         }
 
-        if($holiday->delete()){
+        if($leave->delete()){
             alert()->success('Good', 'Leave deleted successfully')->persistent('Close');
             return redirect()->back();
         }
