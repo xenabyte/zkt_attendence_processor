@@ -28,7 +28,7 @@
                 <table id="datatable-buttons" class="table table-bordered dt-responsive nowrap w-100">
                     <thead>
                     <tr>
-                        <th>Staff full_name</th>
+                        <th>Staff Fullname</th>
                         <th>Staff ID</th>
                         <th>Leave Purpose</th>
                         <th>Start Date</th>
@@ -45,7 +45,7 @@
                     <tr>
                         <td>{{ $leave->staff->firstname .' '. $leave->staff->lastname }}</td>
                         <td>{{ $leave->staff->tau_staff_id}}</td>
-                        <td>{{  $leave->purpose }}</td>
+                        <td>{{ $leave->purpose }}</td>
                         <td>{{ \Carbon\Carbon::parse($leave->start_date)->format('jS \o\f F, Y') }}</td>
                         <td>{{ \Carbon\Carbon::parse($leave->end_date)->format('jS \o\f F, Y') }}</td>
                         <td>{{ $leave->days }} Days</td>

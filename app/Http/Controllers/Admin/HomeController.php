@@ -63,10 +63,10 @@ class HomeController extends Controller
             $staff = $staffRecord;
             $staffId = $staffRecord->id;
 
-            $attendance = Attendance::where('staff_id', $staffId)->where('year', $year)->where('month', $month)->where('status', 1)->get();
+            $attendance = Attendance::where('staff_id', $staffId)->where('year', $year)->where('month', $month)->where('status', 2)->get();
             $staff->attendance = $attendance;
 
-            $leaveDays = Attendance::where('staff_id', $staffId)->where('year', $year)->where('month', $month)->where('status', 1)->where('leave_id', '!=', Null)->count();
+            $leaveDays = Attendance::where('staff_id', $staffId)->where('year', $year)->where('month', $month)->where('status', 2)->where('leave_id', '!=', Null)->count();
             $staff->leaveDays = $leaveDays;
 
 
@@ -202,7 +202,7 @@ class HomeController extends Controller
         $startDateOfPresentMonth = Carbon::now()->startOfMonth();
         $endDateOfPresentMonth = Carbon::now()->endOfMonth();
 
-        $attendance = Attendance::where('id', $attendanceId)->update(['status' => 1]);
+        $attendance = Attendance::where('id', $attendanceId)->update(['status' => 2]);
         
         alert()->success('Good', 'Attendance Update successfully')->persistent('Close');
         return redirect()->back();

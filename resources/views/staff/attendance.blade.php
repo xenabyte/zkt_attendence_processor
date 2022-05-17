@@ -41,8 +41,8 @@
                     @foreach ($attendances as $attendance)
                     <tr>
                         <td>{{  \Carbon\Carbon::parse($attendance->date)->format('jS \o\f F, Y') }}</td>
-                        <td>{{ \Carbon\Carbon::parse($attendance->clock_in)->format('H:i A') }}</td>
-                        <td>{{ \Carbon\Carbon::parse($attendance->clock_out)->format('H:i A') }}</td>
+                        <td>{{ \Carbon\Carbon::parse($attendance->clock_in)->format('h:i A') }}</td>
+                        <td>{{ \Carbon\Carbon::parse($attendance->clock_out)->format('h:i A') }}</td>
                         <td>{{ $attendance->leave? $attendance->leave->purpose : null }}</td>
                         <td>
                             @if($attendance->status == 2)
