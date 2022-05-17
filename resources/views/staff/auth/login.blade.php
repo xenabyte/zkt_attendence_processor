@@ -227,6 +227,8 @@
                                                                     <option value="Faculty of Management and Social Sciences">Faculty of Management and Social Sciences</option>
                                                                     <option value="Directoriate of Information and Communication Technology">Directoriate of Information  and Communication  Technology</option>
                                                                     <option value="University Health Center">University Health Center</option>
+                                                                    <option value="Registry">Registry</option>
+                                                                    <option value="Busary">Busary</option>
                                                                     <option value="Physical Planning and Development">Physical Planning and Development (Works)</option>
                                                                     <option value="Thomas Adewumi University Ventures">Thomas Adewumi University Ventures</option>
                                                                 </select>
