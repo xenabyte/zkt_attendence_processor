@@ -62,7 +62,7 @@ class Staff extends Authenticatable
      */
     public function attendance()
     {
-        return $this->hasMany(Attendance::class, 'staff_id')->where('status', 2)->where('month', Carbon::now()->format('M'));
+        return $this->hasMany(Attendance::class, 'staff_id')->where('status', 2)->where('month', Carbon::now()->format('M'))->orderBy('date');
     }
 
 
