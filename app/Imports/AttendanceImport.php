@@ -62,6 +62,8 @@ class AttendanceImport implements ToCollection
                             $status = $status != 2 ? 2 : $status;
                         case 'TAU/SSPF/020':
                             $status = $status != 2 ? 2 : $status;
+                        case 'TAU/SSPF/006':
+                            $status = $status != 2 ? 2 : $status;
                         default;
                         $status = $status;
                     }
