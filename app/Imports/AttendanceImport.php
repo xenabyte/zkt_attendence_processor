@@ -45,7 +45,7 @@ class AttendanceImport implements ToCollection
                 if(empty($checkAttendance)){
                     //Nursing Mothers
                     switch($tauStaffId){
-                        case 'TAU/SSPF/019':
+                        case 'TAU/SSPF/064':
                             $clockOut = !empty($clockIn) ? Carbon::parse('05:00')->subMinutes(rand(0, 30))->toTimeString(): $clockOut;
                         case 'TAU/SSPF/021':
                             $clockOut = !empty($clockIn) ? Carbon::parse('05:00')->subMinutes(rand(0, 30))->toTimeString(): $clockOut;
