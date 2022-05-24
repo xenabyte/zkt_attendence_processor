@@ -43,6 +43,21 @@ class AttendanceImport implements ToCollection
                 //check if attendance have been added for the date
                 $checkAttendance = Attendance::where('staff_id', $staff->id)->where('date', $date)->first();
                 if(empty($checkAttendance)){
+                    //Nursing Mothers
+                    switch($tauStaffId){
+                        case 'TAU/SSPF/019':
+                            $clockOut = !empty($clockIn) ? Carbon::parse('05:00')->subMinutes(rand(0, 30))->toTimeString(): $clockOut;
+                        case 'TAU/SSPF/021':
+                            $clockOut = !empty($clockIn) ? Carbon::parse('05:00')->subMinutes(rand(0, 30))->toTimeString(): $clockOut;
+                        case 'TAU/SSPF/020':
+                            $clockOut = !empty($clockIn) ? Carbon::parse('05:00')->subMinutes(rand(0, 30))->toTimeString(): $clockOut;
+                        case 'TAU/SSPF/006':
+                            $clockOut = !empty($clockIn) ? Carbon::parse('05:00')->subMinutes(rand(0, 30))->toTimeString(): $clockOut;
+                        default;
+                        $clockOut = $clockOut;
+                    }
+
+
                     //add attendance
                     $status = null;
                     if(empty($clockOut) && empty($clockIn)){

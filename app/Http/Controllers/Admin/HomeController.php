@@ -152,7 +152,7 @@ class HomeController extends Controller
 
         $staff = Staff::find($staffId);
 
-        $attendances = Attendance::with('leave')->where('staff_id', $staffId)->where('year', $year)->where('month', $month)->get();
+        $attendances = Attendance::with('leave')->where('staff_id', $staffId)->where('year', $year)->where('month', $month)->where('status', 2)->get();
         $totalPresentdays = Attendance::with('leave')->where('staff_id', $staffId)->where('year', $year)->where('month', $month)->where('status', 1)->count();
         $pendingLeaveApplicationCount = Leave::where('status', null)->count();
 
@@ -177,7 +177,7 @@ class HomeController extends Controller
             $staff = $staffRecord;
             $staffId = $staffRecord->id;
 
-            $attendance = Attendance::with('leave')->where('staff_id', $staffId)->where('year', $year)->where('month', $month)->get();
+            $attendance = Attendance::with('leave')->where('staff_id', $staffId)->where('year', $year)->where('month', $month)->where('status', 2)->get();
             $staff->attendance = $attendance;
 
             $leaveDays = Attendance::where('staff_id', $staffId)->where('year', $year)->where('month', $month)->where('status', 1)->where('leave_id', '!=', Null)->count();

@@ -20,7 +20,6 @@ class Controller extends BaseController
         $today = Carbon::now();
         $diff = $startDateOfPresentMonth->diffInDays($today);
         $weekendDays = $this->countWeekendDays($startDateOfPresentMonth, $today); 
-        log::info($diff);
         $capturedWorkingDays = $diff - $weekendDays;
 
         return $capturedWorkingDays;
