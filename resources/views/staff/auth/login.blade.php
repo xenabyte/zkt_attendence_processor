@@ -227,6 +227,7 @@
                                                                     <option value="Faculty of Management and Social Sciences">Faculty of Management and Social Sciences</option>
                                                                     <option value="Directoriate of Information and Communication Technology">Directoriate of Information  and Communication  Technology</option>
                                                                     <option value="University Health Center">University Health Center</option>
+                                                                    <option value="Student Care Services">Student Care Services</option>
                                                                     <option value="Library and Information Services">Library and Information Services</option>
                                                                     <option value="Registry">Registry</option>
                                                                     <option value="Busary">Busary</option>
