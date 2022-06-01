@@ -65,10 +65,12 @@
                                 <a href="#" class="dropdown-toggle card-drop" data-bs-toggle="dropdown" aria-expanded="false">
                                     <i class="mdi mdi-dots-horizontal font-size-18"></i>
                                 </a>
-                                @if($attendance->status != 2)
-                                <ul class="dropdown-menu dropdown-menu-end">
-                                   <li><a href="{{ url('/admin/updateAttendance') }}/{{ $attendance->id }}" class="dropdown-item"><i class="mdi mdi-check font-size-16 text-success me-1"></i> Mark Present</a></li>
-                                </ul>
+                                @if(Auth::guard('admin')->user()->role == 3)
+                                    @if($attendance->status != 2)
+                                    <ul class="dropdown-menu dropdown-menu-end">
+                                    <li><a href="{{ url('/admin/updateAttendance') }}/{{ $attendance->id }}" class="dropdown-item"><i class="mdi mdi-check font-size-16 text-success me-1"></i> Mark Present</a></li>
+                                    </ul>
+                                    @endif
                                 @endif
                             </div>
                         </td>
