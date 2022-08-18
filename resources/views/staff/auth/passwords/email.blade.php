@@ -21,7 +21,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="card-body pt-0"> 
+                    <div class="card-body pt-0">
                         <div>
                             <a href="index-2.html">
                                 <div class="avatar-md profile-user-wid mb-4">
@@ -31,13 +31,13 @@
                                 </div>
                             </a>
                         </div>
-                        
+
                         <div class="p-2">
                             <div class="alert alert-info text-center mb-4" role="alert">
                                 Enter your Email and instructions will be sent to you!
                             </div>
                             <form class="form-horizontal" method="POST" action="{{ url('/staff/password/email') }}">
-    
+                                @csrf
                                 <div class="mb-3{{ $errors->has('email') ? ' has-error' : '' }}">
                                     <label for="useremail" class="form-label">Email</label>
                                     <input type="email" class="form-control" id="useremail" placeholder="Enter email" name="email" value="{{ old('email') }}">
@@ -48,7 +48,7 @@
                                         </span>
                                     @endif
                                 </div>
-            
+
                                 <div class="text-center">
                                     <button class="btn btn-primary w-md waves-effect waves-light" type="submit">Reset</button>
                                 </div>
@@ -61,7 +61,7 @@
 
                             </form>
                         </div>
-    
+
                     </div>
                 </div>
 

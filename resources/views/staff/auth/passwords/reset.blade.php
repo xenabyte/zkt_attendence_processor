@@ -20,7 +20,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="card-body pt-0"> 
+                    <div class="card-body pt-0">
                         <div>
                             <a href="index-2.html">
                                 <div class="avatar-md profile-user-wid mb-4">
@@ -31,14 +31,14 @@
                             </a>
                         </div>
                         <div class="p-2">
-                            <form class="needs-validation" novalidate method="POST" action="action="{{ url('/staff/password/reset') }}"">
+                            <form class="needs-validation" novalidate method="POST" action="{{ url('/staff/password/reset') }}">
                                 @csrf
                                 <input type="hidden" name="token" value="{{ $token }}">
-                               
-    
+
+
                                 <div class="mb-3{{ $errors->has('email') ? ' has-error' : '' }}">
                                     <label for="useremail" class="form-label">Email</label>
-                                    <input type="email" class="form-control" id="useremail" placeholder="Enter email" name="email"  value="{{ $email or old('email') }}" required>  
+                                    <input type="email" class="form-control" id="useremail" placeholder="Enter email" name="email"  value="{{ $email or old('email') }}" required>
                                     @if ($errors->has('email'))
                                         <span class="help-block">
                                             <strong>{{ $errors->first('email') }}</strong>
@@ -46,9 +46,9 @@
                                     @endif
                                     <div class="invalid-feedback">
                                         Please Enter Email
-                                    </div>      
+                                    </div>
                                 </div>
-        
+
                                 <div class="mb-3{{ $errors->has('password') ? ' has-error' : '' }}">
                                     <label for="userpassword" class="form-label">Password</label>
                                     <input type="password" class="form-control" id="userpassword"  name="password" placeholder="Enter password" required>
@@ -60,7 +60,7 @@
 
                                     <div class="invalid-feedback">
                                         Please Enter Password
-                                    </div>       
+                                    </div>
                                 </div>
 
                                 <div class="mb-3{{ $errors->has('password_confirmation') ? ' has-error' : '' }}">
@@ -70,31 +70,31 @@
                                         <span class="help-block">
                                             <strong>{{ $errors->first('password_confirmation') }}</strong>
                                         </span>
-                                    @endif 
-                                    
+                                    @endif
+
                                     <div class="invalid-feedback">
                                         Please Enter Confirmation Password
                                     </div>
                                 </div>
-            
+
                                 <div class="mt-4 d-grid">
                                     <button class="btn btn-primary waves-effect waves-light" type="submit"> Reset Password</button>
                                 </div>
 
                                 <div class="mt-5 text-center">
-                    
+
                                     <div>
                                     <hr>
                                         <p>© <script>document.write(new Date().getFullYear())</script> {{ env('APP_NAME') }}. </p>
                                     </div>
                                 </div>
-                
+
                             </form>
                         </div>
-    
+
                     </div>
                 </div>
-    
+
             </div>
         </div>
     </div>
