@@ -82,8 +82,92 @@ class HomeController extends Controller
         ]);
     }
 
+
+    public function admins()
+    {
+        $adminRecords = Admin::all();
+        $pendingLeaveApplicationCount = Leave::where('status', null)->count();
+
+        return view('admin.admins', [
+            'admins' => $adminRecords,
+            'pendingLeaveApplicationCount' => $pendingLeaveApplicationCount,
+        ]);
+    }
+
+    public function updateAdmin(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'id' => 'required'
+        ]);
+
+        if($validator->fails()) {
+            alert()->error('Error', $validator->messages()->all()[0])->persistent('Close');
+            return redirect()->back();
+        }
+
+        if(!$admin = Admin::find($request->id)){
+            alert()->error('Error', 'Invalid Admin record')->persistent('Close');
+            return redirect()->back();
+        }
+
+        if(!empty($request->name) && $admin->name != $request->name){
+            $admin->name = $request->name;
+        }
+
+        if(!empty($request->email) && $admin->email != $request->email){
+            $admin->email = $request->email;
+        }
+
+        if(!empty($request->password) && $admin->password != bcrypt($request->password)){
+            $admin->password = $request->password;
+        }
+
+        if(!empty($request->role) && $admin->role != $request->role){
+            $admin->role = $request->role;
+        }
+
+        if($admin->save()){
+            alert()->success('Good', 'Changes saved successfully')->persistent('Close');
+            return redirect()->back();
+        }
+
+        alert()->error('Error', 'Changes not saved ')->persistent('Close');
+        return redirect()->back();
+    }
+
+    public function addAdmin(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'name' => 'required',
+            'email' => 'required',
+            'password' => 'required',
+            'role' => 'required',
+        ]);
+
+
+        if($validator->fails()) {
+            alert()->error('Error', $validator->messages()->all()[0])->persistent('Close');
+            return redirect()->back();
+        }
+
+        $newAdmin= ([
+            'name' => $request->name,
+            'email' => $request->email,
+            'password' => bcrypt($request->password),
+            'role' => $request->role,
+        ]);
+
+        if(Admin::create($newAdmin)){
+            alert()->success('Good', 'Admin added successfully')->persistent('Close');
+            return redirect()->back();
+        }
+
+        alert()->error('Error', 'Record not added successful')->persistent('Close');
+        return redirect()->back();
+    }
+
     public function uploadAttendance(Request $request){
-        
+
         $validator = Validator::make(
             [
                 'file' => $request->file,
@@ -96,7 +180,7 @@ class HomeController extends Controller
         );
 
 
-        // $attendanceFile = 'uploads/attendance/'.$request->file('file')->getClientOriginalName(); 
+        // $attendanceFile = 'uploads/attendance/'.$request->file('file')->getClientOriginalName();
         // $MoveAttendanceFile = $request->file('file')->move('uploads/attendance', $attendanceFile);
         if ($validator->fails()) {
             alert()->error('Error', $validator->messages()->all()[0])->persistent('Close');
@@ -130,7 +214,7 @@ class HomeController extends Controller
             'staff' => $staff,
             'pendingLeaveApplicationCount' => $pendingLeaveApplicationCount,
         ]);
-    } 
+    }
 
     public function pastAttendance($staffId)
     {
@@ -203,7 +287,7 @@ class HomeController extends Controller
         $endDateOfPresentMonth = Carbon::now()->endOfMonth();
 
         $attendance = Attendance::where('id', $attendanceId)->update(['status' => 2]);
-        
+
         alert()->success('Good', 'Attendance Update successfully')->persistent('Close');
         return redirect()->back();
     }
@@ -264,7 +348,7 @@ class HomeController extends Controller
             alert()->error('Error', $validator->messages()->all()[0])->persistent('Close');
             return redirect()->back();
         }
-        
+
         $startDate = Carbon::parse($request->start_date);
         $endDate = Carbon::parse($request->end_date);
 

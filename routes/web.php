@@ -47,7 +47,11 @@ Route::group(['prefix' => 'admin'], function () {
   Route::post('/addHoliday', [App\Http\Controllers\Admin\HomeController::class, 'addHoliday']);
   Route::post('/deleteHoliday', [App\Http\Controllers\Admin\HomeController::class, 'deleteHoliday']);
 
-  
+  Route::get('/admins', [App\Http\Controllers\Admin\HomeController::class, 'admins']);
+  Route::post('/addAdmin', [App\Http\Controllers\Admin\HomeController::class, 'addAdmin']);
+  Route::post('/updateAdmin', [App\Http\Controllers\Admin\HomeController::class, 'updateAdmin']);
+
+
 
 });
 
