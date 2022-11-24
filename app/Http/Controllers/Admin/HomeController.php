@@ -294,7 +294,7 @@ class HomeController extends Controller
 
     public function leaveApplication() {
 
-        $leaves = Leave::with('staff')->get();
+        $leaves = Leave::with('staff')->where('status', null)->get();
         $pendingLeaveApplicationCount = Leave::where('status', null)->count();
 
         return view('admin.leaveApplication', [
