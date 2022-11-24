@@ -127,6 +127,7 @@
         <div class="card">
             <div class="card-body">
 
+                @if(Auth::guard('admin')->user()->role == 1)
                 <h4 class="card-title">Upload Attendance</h4>
                 <p class="card-title-desc">Upload attendance file extracted from attendance capturing device <br><span class="text-danger"><strong>Note:</strong> Only .xlsx file allowed.</p>
                 </p>
@@ -137,12 +138,13 @@
                         <div class="fallback dropzone"">
                             <input name="file" type="file" required>
                         </div>
-                       
+
 
                         <br>
                         <button type="submit" class="btn btn-primary waves-effect waves-light">Upload Attendance</button>
                     </form>
                 </div>
+                @endif
             </div>
         </div>
     </div>

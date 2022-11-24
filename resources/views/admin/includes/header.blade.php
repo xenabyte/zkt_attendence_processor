@@ -131,7 +131,7 @@
                             <li>
                                 <a href="{{ url('/admin/staffs') }}" class="waves-effect">
                                     <i class="bx bx-user-circle"></i>
-                                    <span key="t-dashboards">All Staffs</span>
+                                    <span key="t-dashboards">All Staff</span>
                                 </a>
                             </li>
 
