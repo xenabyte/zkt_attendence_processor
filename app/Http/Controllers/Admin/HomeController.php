@@ -119,7 +119,7 @@ class HomeController extends Controller
         }
 
         if(!empty($request->password) && $admin->password != bcrypt($request->password)){
-            $admin->password = $request->password;
+            $admin->password = bcrypt($request->password);
         }
 
         if(!empty($request->role) && $admin->role != $request->role){
