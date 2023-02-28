@@ -11,6 +11,8 @@ class StaffClass extends Model
 
     const STAFF_ACADEMIC = "Academic Staff";
     const STAFF_NON_ACADEMIC = "Non Academic Staff";
+    const STAFF_WORKS = "Physical Planning and Venture Staff";
+    const STAFF_SECURITY = "Security Staff";
 
     protected $fillable = [
         'class',

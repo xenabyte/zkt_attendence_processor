@@ -20,7 +20,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="card-body pt-0"> 
+                    <div class="card-body pt-0">
                         <div>
                             <a href="index-2.html">
                                 <div class="avatar-md profile-user-wid mb-4">
@@ -40,11 +40,11 @@
                                         <span class="help-block">
                                             <strong>{{ $errors->first('email') }}</strong>
                                         </span>
-                                    @endif 
-                    
+                                    @endif
+
                                 </div>
-        
-        
+
+
                                 <div class="mb-3">
                                     <label class="form-label">Password</label>
                                     <div class="input-group auth-pass-inputgroup">
@@ -65,7 +65,7 @@
                                         Remember me
                                     </label>
                                 </div>
-            
+
                                 <div class="mt-4 d-grid">
                                     <button class="btn btn-primary waves-effect waves-light" type="submit">Login</button>
                                 </div>
@@ -80,7 +80,7 @@
                                         Click here for complete profile
                                     </button>
                                 </div>
-                                
+
                                 <div class="mt-5 text-center">
                                     <hr>
                                     <div>
@@ -102,11 +102,11 @@
                                     </div>
                                     <div class="modal-body">
                                         <form action="{{ url('/staff/completeRegistration') }}" id="profile-form" method="post" enctype="multipart/form-data">
-                                           @csrf 
+                                           @csrf
                                             <div id="kyc-verify-wizard">
                                                 <!-- Personal Info -->
                                                 <h3>Personal Info</h3>
-                                                
+
                                                 <section>
                                                     <div class="row">
                                                         <div class="col-lg-12">
@@ -161,7 +161,7 @@
                                                                 <code>TAU Staff Email eg. (firstname.lastname@tau.edu.ng) </code>
                                                             </div>
                                                         </div>
-                                                         
+
                                                         <div class="col-lg-6">
                                                             <div class="form-floating mb-3">
                                                                 <input type="password" name="password" class="form-control" id="kycpass-input" placeholder="Enter Password" >
@@ -177,7 +177,7 @@
                                                     </div>
                                                     <br>
                                                 </section>
-    
+
                                                 <!-- Confirm email -->
                                                 <h3>Position</h3>
                                                 <section>
@@ -198,6 +198,8 @@
                                                                     <option value="" selected>Select Category</option>
                                                                     <option value="Academic Staff">Academic Staff</option>
                                                                     <option value="Non Academic Staff">Non Academic Staff</option>
+                                                                    <option value="Physical Planning and Venture Staff">Physical Planning and Venture Staff</option>
+                                                                    <option value="Security Staff">Security Staff</option>
                                                                 </select>
                                                                 <label for="kyctye-input" class="form-label">Staff Category</label>
                                                             </div>
@@ -250,7 +252,7 @@
                                                         </div>
                                                     </div>
                                                 </section>
-    
+
                                                 <!-- Document Verification -->
                                                 <h3>Upload Passport</h3>
                                                 <section>
@@ -263,7 +265,7 @@
                                                         </div>
                                                     </div>
                                                 </section>
-                                               
+
                                                 <button id='submit' type="submit"></button>
                                             </div>
                                         </form>
@@ -271,10 +273,10 @@
                                 </div>
                             </div>
                         </div>
-    
+
                     </div>
                 </div>
-                
+
             </div>
         </div>
     </div>

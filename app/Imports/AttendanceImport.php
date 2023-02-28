@@ -24,6 +24,7 @@ class AttendanceImport implements ToCollection
             //jumb the first row
             if($key > 0){
                 $tauStaffId = 'TAU/'.$value[0];
+                $name = $value[1];
                 $date = carbon::parse($value[2]);
                 $year = carbon::parse($value[2])->format('Y');
                 $month = carbon::parse($value[2])->format('M');
@@ -37,6 +38,19 @@ class AttendanceImport implements ToCollection
                     //create Staff
                     Staff::create(['tau_staff_id' => $tauStaffId]);
                     $staff = Staff::where('tau_staff_id', $tauStaffId)->first();
+                }
+
+                if(empty($staff->firstname)){
+                    $splitedName = $this->splitName($name);
+                    $firstName = $splitedName->firstname;
+                    $lastName = $splitedName->lastname;
+                    $middleName = $splitedName->middlename;
+
+                    //update staff information
+                    $staff->firstname = $firstName;
+                    $staff->lastname = $lastName;
+                    $staff->middleName = $middleName;
+                    $staff->save();
                 }
 
                 //add attendance
@@ -62,7 +76,7 @@ class AttendanceImport implements ToCollection
                     $status = null;
                     if(empty($clockOut) && empty($clockIn)){
                         $status = 0;
-                    }elseif(empty($clockOut) || empty($clockIn)){ 
+                    }elseif(empty($clockOut) || empty($clockIn)){
                         $status = 1;
                     }else{
                         $status = 2;
@@ -92,10 +106,10 @@ class AttendanceImport implements ToCollection
 
                         if($date == $leaveStartDate || $date < $leaveEndDate) {
                             $leaveId = $leave->id;
-                            $status = 2;    
+                            $status = 2;
                         }
                     }
-                   
+
 
                     $newAttendance = ([
                         'staff_id' => $staff->id,
@@ -113,5 +127,20 @@ class AttendanceImport implements ToCollection
 
             }
         }
+    }
+
+    public function splitName($name) {
+        $parts = explode(" ", $name);
+
+        $lastname = $parts[0];
+        $firstName = count($parts[1]) > 2 ? $parts[1] : $parts[1][0];
+        $middleName = (isset($parts[2])) ? $parts[2] : null;
+
+        $name = new \stdClass();
+        $name->lastname = $lastname;
+        $name->middleName =  $middleName;
+        $name->firstname = $firstName;
+
+        return $name;
     }
 }

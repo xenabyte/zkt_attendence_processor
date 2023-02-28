@@ -20,7 +20,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="card-body pt-0"> 
+                    <div class="card-body pt-0">
                         <div>
                             <a href="index-2.html">
                                 <div class="avatar-md profile-user-wid mb-4">
@@ -56,7 +56,7 @@
                                     </div>
                                 </div>
 
-                               
+
                                 <div>
                                     <button type="submit" class="btn btn-primary w-md">Submit</button>
                                 </div>
@@ -65,7 +65,7 @@
 
                             <form class="needs-validation" novalidate method="POST" action="{{ url('/staff/register') }}">
                                 @csrf
-                               
+
                                 <div class="mb-3{{ $errors->has('username') ? ' has-error' : '' }}">
                                     <label for="username" class="form-label">Username</label>
                                     <input type="text" class="form-control" id="username" placeholder="Enter username" name="username" value="{{ old('username') }}" autofocus required>
@@ -78,12 +78,12 @@
 
                                     <div class="invalid-feedback">
                                         Please Enter Username
-                                    </div>  
+                                    </div>
                                 </div>
 
                                 <div class="mb-3{{ $errors->has('email') ? ' has-error' : '' }}">
                                     <label for="useremail" class="form-label">Email</label>
-                                    <input type="email" class="form-control" id="useremail" placeholder="Enter email" name="email" value="{{ old('email') }}" required>  
+                                    <input type="email" class="form-control" id="useremail" placeholder="Enter email" name="email" value="{{ old('email') }}" required>
                                     @if ($errors->has('email'))
                                         <span class="help-block">
                                             <strong>{{ $errors->first('email') }}</strong>
@@ -91,9 +91,9 @@
                                     @endif
                                     <div class="invalid-feedback">
                                         Please Enter Email
-                                    </div>      
+                                    </div>
                                 </div>
-        
+
                                 <div class="mb-3{{ $errors->has('password') ? ' has-error' : '' }}">
                                     <label for="userpassword" class="form-label">Password</label>
                                     <input type="password" class="form-control" id="userpassword"  name="password" placeholder="Enter password" required>
@@ -105,7 +105,7 @@
 
                                     <div class="invalid-feedback">
                                         Please Enter Password
-                                    </div>       
+                                    </div>
                                 </div>
 
                                 <div class="mb-3{{ $errors->has('password_confirmation') ? ' has-error' : '' }}">
@@ -115,36 +115,36 @@
                                         <span class="help-block">
                                             <strong>{{ $errors->first('password_confirmation') }}</strong>
                                         </span>
-                                    @endif 
-                                    
+                                    @endif
+
                                     <div class="invalid-feedback">
                                         Please Enter Confirmation Password
                                     </div>
                                 </div>
-            
+
                                 <div class="mt-4 d-grid">
                                     <button class="btn btn-primary waves-effect waves-light" type="submit">Register</button>
                                 </div>
-        
+
                                 <div class="mt-4 text-center">
-                                    <p class="mb-0">By registering you agree to the Skote <a href="#" class="text-primary">Terms of Use</a></p>
+                                    <p class="mb-0">By registering you agree to the TAU Attendance <a href="#" class="text-primary">Terms of Use</a></p>
                                 </div>
 
                                 <div class="mt-5 text-center">
-                    
+
                                     <div>
                                     <hr>
                                         <p>Already have an account ? <a href="{{url('user/login')}}" class="fw-medium text-primary"> Login</a> </p>
                                         <p>© <script>document.write(new Date().getFullYear())</script> {{ env('APP_NAME') }}. </p>
                                     </div>
                                 </div>
-                
+
                             </form>
                         </div>
-    
+
                     </div>
                 </div>
-    
+
             </div>
         </div>
     </div>
