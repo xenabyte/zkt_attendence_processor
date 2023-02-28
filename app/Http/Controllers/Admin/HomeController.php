@@ -299,8 +299,11 @@ class HomeController extends Controller
         $status = $request->status;
 
         if(!$staff = Staff::find($staffId)){
-            $staff->status = $status;
+            alert()->error('Oops', 'Staff not found')->persistent('Close');
+            return redirect()->back();
         }
+
+        $staff->status = $status;
 
         if($staff->save()){
             alert()->success('Good', 'Staff Status Updated successfully')->persistent('Close');
