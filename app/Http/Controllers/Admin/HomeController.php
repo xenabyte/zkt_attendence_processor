@@ -39,7 +39,7 @@ class HomeController extends Controller
 
     public function index()
     {
-        $staffs = Staff::with('attendance');
+        $staffs = Staff::with('attendance')->where('status', '!=', 'Left');
 
         $capturedWorkingDays = $this->capturedWorkingDays();
         $pendingLeaveApplicationCount = Leave::where('status', null)->count();
