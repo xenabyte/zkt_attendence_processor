@@ -133,7 +133,7 @@ class AttendanceImport implements ToCollection
         $parts = explode(" ", $name);
 
         $lastname = $parts[0];
-        $firstName = count($parts[1]) > 2 ? $parts[1] : $parts[1][0];
+        $firstName = strlen($parts[1]) > 2 ? $parts[1] : $parts[1][0];
         $middleName = (isset($parts[2])) ? $parts[2] : null;
 
         $name = new \stdClass();
