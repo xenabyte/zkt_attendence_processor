@@ -47,8 +47,6 @@
                     <tr>
                         <th>Staff ID</th>
                         <th>Name</th>
-                        <th>Position</th>
-                        <th>Email/Phone Number</th>
                         <th>Attendance -  {{ empty($year)? date('M Y') : $month .' '. $year }}</th>
                         <th>Action</th>
                     </tr>
@@ -60,8 +58,6 @@
                     <tr>
                         <td>{{ $staff->tau_staff_id }}</td>
                         <td>{{ $staff->lastname . ' '.$staff->firstname .' '. $staff->middlename }}</td>
-                        <td>{{ $staff->job_specification }}</td>
-                        <td>{{ $staff->email .'/'. $staff->phone_number }}</td>
                         <td>{{ $staff->attendance->count() }} Days</td>
                         <td>
                             <div class="dropdown">
@@ -69,7 +65,7 @@
                                     <i class="mdi mdi-dots-horizontal font-size-18"></i>
                                 </a>
                                 <ul class="dropdown-menu dropdown-menu-end">
-                                    <li><a href="javascript:void(0);" data-bs-toggle="modal" data-bs-target="#manageStaff{{$staff->id}}" class="dropdown-item btn btn-primary"><i class="mdi mdi-account-edit font-size-16 text-success me-1"></i> Staff</a></li>
+                                    <li><a href="javascript:void(0);" data-bs-toggle="modal" data-bs-target="#manageStaff{{$staff->id}}" class="dropdown-item btn btn-primary"><i class="mdi mdi-account-edit font-size-16 text-success me-1"></i>Manage Staff</a></li>
                                     @if(empty($year))<li><a href="{{ url('/admin/monthlyAttendance') }}/{{ $staff->id }}" class="dropdown-item"><i class="mdi mdi-eye font-size-16 text-success me-1"></i> View Attendance</a></li>@endif
                                     <li><a href="{{ url('/admin/pastAttendance') }}/{{ $staff->id }}" class="dropdown-item"><i class="mdi mdi-calendar-search font-size-16 text-info me-1"></i> Past Records Attendance</a></li>
                                 </ul>
@@ -91,7 +87,7 @@
                                                     <input name="staff_id" type="hidden" value="{{$staff->id}}">
                                                     <div class="mb-3 mt-5">
                                                         <label for="choices-publish-status-input" class="form-label">Manage Staff</label>
-                                                        <select class="form-select" name="status" id="choices-publish-status-input" data-choices data-choices-search-false>
+                                                        <select class="form-select" name="status" id="choices-publish-status-input" required>
                                                             <option value="" selected>Choose...</option>
                                                             <option value="Active">Active</option>
                                                             <option value="Left">Left</option>
