@@ -69,7 +69,7 @@
                                     <i class="mdi mdi-dots-horizontal font-size-18"></i>
                                 </a>
                                 <ul class="dropdown-menu dropdown-menu-end">
-                                    <li><a href="javascript:void(0);" data-bs-toggle="modal" data-bs-target="#manageStaff{{$staff->id}}" class="link-warning">Manage Staff</a></li>
+                                    <li><a href="javascript:void(0);" data-bs-toggle="modal" data-bs-target="#manageStaff{{$staff->id}}" class="dropdown-item btn btn-primary">Staff</a></li>
                                     @if(empty($year))<li><a href="{{ url('/admin/monthlyAttendance') }}/{{ $staff->id }}" class="dropdown-item"><i class="mdi mdi-eye font-size-16 text-success me-1"></i> View Attendance</a></li>@endif
                                     <li><a href="{{ url('/admin/pastAttendance') }}/{{ $staff->id }}" class="dropdown-item"><i class="mdi mdi-calendar-search font-size-16 text-info me-1"></i> Past Records Attendance</a></li>
                                 </ul>
