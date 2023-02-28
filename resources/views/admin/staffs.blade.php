@@ -89,7 +89,6 @@
                                                 <form action="{{ url('/admin/updateStaffStatus') }}" method="POST">
                                                     @csrf
                                                     <input name="staff_id" type="hidden" value="{{$staff->id}}">
-                                                    <input type="hidden" name="applicant_id" value="{{ $applicant->id }}">
                                                     <div class="mb-3 mt-5">
                                                         <label for="choices-publish-status-input" class="form-label">Manage Staff</label>
                                                         <select class="form-select" name="status" id="choices-publish-status-input" data-choices data-choices-search-false>
