@@ -51,7 +51,7 @@ Route::group(['prefix' => 'admin'], function () {
   Route::post('/addAdmin', [App\Http\Controllers\Admin\HomeController::class, 'addAdmin']);
   Route::post('/updateAdmin', [App\Http\Controllers\Admin\HomeController::class, 'updateAdmin']);
 
-
+  Route::post('/updateStaffStatus', [App\Http\Controllers\Admin\HomeController::class, 'updateStaffStatus']);
 
 });
 

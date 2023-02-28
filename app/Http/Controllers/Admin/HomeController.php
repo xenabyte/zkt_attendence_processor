@@ -57,7 +57,7 @@ class HomeController extends Controller
         $year = Carbon::parse()->format('Y');
         $month = Carbon::parse()->format('M');
 
-        $staffRecords = Staff::all();
+        $staffRecords = Staff::where('status', '!=', 'Left')->get();
         $staffs = array();
         foreach ($staffRecords as $staffRecord){
             $staff = $staffRecord;
@@ -291,6 +291,26 @@ class HomeController extends Controller
         alert()->success('Good', 'Attendance Update successfully')->persistent('Close');
         return redirect()->back();
     }
+
+
+    public function updateStaffStatus(Request $request)
+    {
+        $staffId = $request->staff_id;
+        $action = $request->action;
+
+        if(!$staff = Staff::find($staffId)){
+            $staff->status = $status;
+        }
+
+        if($staff->save()){
+            alert()->success('Good', 'Staff Status Updated successfully')->persistent('Close');
+            return redirect()->back();
+        }
+
+        alert()->error('Oops', 'Error while uploading staff status')->persistent('Close');
+        return redirect()->back();
+    }
+
 
     public function leaveApplication() {
 

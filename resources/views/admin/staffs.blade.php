@@ -48,7 +48,6 @@
                         <th>Staff ID</th>
                         <th>Name</th>
                         <th>Position</th>
-                        <th>Office</th>
                         <th>Email/Phone Number</th>
                         <th>Attendance -  {{ empty($year)? date('M Y') : $month .' '. $year }}</th>
                         <th>Action</th>
@@ -60,9 +59,8 @@
                     @foreach ($staffs as $staff)
                     <tr>
                         <td>{{ $staff->tau_staff_id }}</td>
-                        <td>{{ $staff->lastname . ' '.$staff->firstname }}</td>
+                        <td>{{ $staff->lastname . ' '.$staff->firstname .' '. $staff->middlename }}</td>
                         <td>{{ $staff->job_specification }}</td>
-                        <td>{{ $staff->faculty .'/'. $staff->department }}</td>
                         <td>{{ $staff->email .'/'. $staff->phone_number }}</td>
                         <td>{{ $staff->attendance->count() }} Days</td>
                         <td>
@@ -71,10 +69,46 @@
                                     <i class="mdi mdi-dots-horizontal font-size-18"></i>
                                 </a>
                                 <ul class="dropdown-menu dropdown-menu-end">
+                                    <li><a href="javascript:void(0);" data-bs-toggle="modal" data-bs-target="#manageStaff{{$staff->id}}" class="link-warning">Manage Staff</a></li>
                                     @if(empty($year))<li><a href="{{ url('/admin/monthlyAttendance') }}/{{ $staff->id }}" class="dropdown-item"><i class="mdi mdi-eye font-size-16 text-success me-1"></i> View Attendance</a></li>@endif
                                     <li><a href="{{ url('/admin/pastAttendance') }}/{{ $staff->id }}" class="dropdown-item"><i class="mdi mdi-calendar-search font-size-16 text-info me-1"></i> Past Records Attendance</a></li>
                                 </ul>
                             </div>
+
+                            <div id="manageStaff{{$staff->id}}" class="modal fade" tabindex="-1" aria-hidden="true" style="display: none;">
+                                <div class="modal-dialog modal-dialog-centered">
+                                    <div class="modal-content">
+                                        <div class="modal-body text-center p-5">
+                                            <div class="text-end">
+                                                <button type="button" class="btn-close text-end" data-bs-dismiss="modal" aria-label="Close"></button>
+                                            </div>
+                                            <div class="mt-2">
+                                                <lord-icon src="https://cdn.lordicon.com/wloilxuq.json" trigger="hover" style="width:150px;height:150px">
+                                                </lord-icon>
+                                                <h4 class="mb-3 mt-4">Are you sure you want to unpublish news?</h4>
+                                                <form action="{{ url('/admin/updateStaffStatus') }}" method="POST">
+                                                    @csrf
+                                                    <input name="staff_id" type="hidden" value="{{$staff->id}}">
+                                                    <input type="hidden" name="applicant_id" value="{{ $applicant->id }}">
+                                                    <div class="mb-3 mt-5">
+                                                        <label for="choices-publish-status-input" class="form-label">Manage Staff</label>
+                                                        <select class="form-select" name="status" id="choices-publish-status-input" data-choices data-choices-search-false>
+                                                            <option value="" selected>Choose...</option>
+                                                            <option value="Active">Active</option>
+                                                            <option value="Left">Left</option>
+                                                        </select>
+                                                        <br>
+                                                        <button type="submit" class="btn btn-lg btn-primary"> Submit</button>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                        <div class="modal-footer bg-light p-3 justify-content-center">
+
+                                        </div>
+                                    </div><!-- /.modal-content -->
+                                </div><!-- /.modal-dialog -->
+                            </div><!-- /.modal -->
                         </td>
                     </tr>
                     @endforeach

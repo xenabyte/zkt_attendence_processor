@@ -30,8 +30,9 @@ class Staff extends Authenticatable
         'type',
         'image',
         'date_of_birth',
-        'email', 
+        'email',
         'password',
+        'status',
     ];
 
     /**
@@ -40,7 +41,7 @@ class Staff extends Authenticatable
      * @var array
      */
     protected $hidden = [
-        'password', 
+        'password',
         'remember_token',
     ];
 

@@ -42,15 +42,17 @@ class AttendanceImport implements ToCollection
 
                 if(empty($staff->firstname)){
                     $splitedName = $this->splitName($name);
-                    $firstName = $splitedName->firstname;
-                    $lastName = $splitedName->lastname;
-                    $middleName = $splitedName->middlename;
+                    if($splitedName){
+                        $firstName = $splitedName->firstname;
+                        $lastName = $splitedName->lastname;
+                        $middleName = $splitedName->middlename;
 
-                    //update staff information
-                    $staff->firstname = $firstName;
-                    $staff->lastname = $lastName;
-                    $staff->middleName = $middleName;
-                    $staff->save();
+                        //update staff information
+                        $staff->firstname = $firstName;
+                        $staff->lastname = $lastName;
+                        $staff->middleName = $middleName;
+                        $staff->save();
+                    }
                 }
 
                 //add attendance
@@ -130,16 +132,24 @@ class AttendanceImport implements ToCollection
     }
 
     public function splitName($name) {
-        $parts = explode(" ", $name);
+        $parts = array();
 
-        $lastname = $parts[0];
-        $firstName = strlen($parts[1]) > 2 ? $parts[1] : $parts[1][0];
-        $middleName = (isset($parts[2])) ? $parts[2] : null;
+        while ( strlen( trim($name)) > 0 ) {
+            $name = trim($name);
+            $string = preg_replace('#.*\s([\w-]*)$#', '$1', $name);
+            $parts[] = $string;
+            $name = trim( preg_replace('#'.preg_quote($string,'#').'#', '', $name ) );
+        }
 
+        if (empty($parts)) {
+            return false;
+        }
+
+        $parts = array_reverse($parts);
         $name = new \stdClass();
-        $name->lastname = $lastname;
-        $name->middlename =  $middleName;
-        $name->firstname = $firstName;
+        $name->lastname = $parts[0];
+        $name->middlename = (isset($parts[2])) ? $parts[1] : '';
+        $name->firstname = (isset($parts[2])) ? $parts[2] : ( isset($parts[1]) ? $parts[1] : '');
 
         return $name;
     }
