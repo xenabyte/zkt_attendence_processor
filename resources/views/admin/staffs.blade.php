@@ -85,7 +85,7 @@
                                             <div class="mt-2">
                                                 <lord-icon src="https://cdn.lordicon.com/wloilxuq.json" trigger="hover" style="width:150px;height:150px">
                                                 </lord-icon>
-                                                <h4 class="mb-3 mt-4">Are you sure you want to unpublish news?</h4>
+                                                <h4 class="mb-3 mt-4">Are you sure you want to update staff status?</h4>
                                                 <form action="{{ url('/admin/updateStaffStatus') }}" method="POST">
                                                     @csrf
                                                     <input name="staff_id" type="hidden" value="{{$staff->id}}">

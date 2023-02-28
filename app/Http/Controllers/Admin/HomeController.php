@@ -299,7 +299,7 @@ class HomeController extends Controller
         $action = $request->action;
 
         if(!$staff = Staff::find($staffId)){
-            $staff->status = $status;
+            $staff->status = $action;
         }
 
         if($staff->save()){
