@@ -138,7 +138,7 @@ class AttendanceImport implements ToCollection
 
         $name = new \stdClass();
         $name->lastname = $lastname;
-        $name->middleName =  $middleName;
+        $name->middlename =  $middlename;
         $name->firstname = $firstName;
 
         return $name;
