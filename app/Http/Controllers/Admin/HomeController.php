@@ -296,10 +296,10 @@ class HomeController extends Controller
     public function updateStaffStatus(Request $request)
     {
         $staffId = $request->staff_id;
-        $action = $request->action;
+        $status = $request->status;
 
         if(!$staff = Staff::find($staffId)){
-            $staff->status = $action;
+            $staff->status = $status;
         }
 
         if($staff->save()){
