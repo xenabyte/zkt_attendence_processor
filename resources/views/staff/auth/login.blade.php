@@ -138,7 +138,7 @@
                                                         </div>
                                                         <div class="col-lg-4">
                                                             <div class="form-floating mb-4">
-                                                                <input type="date" name="date_of_birth"  class="form-control" id="kycbirthdate-input"  max="2000-01-01" placeholder="Enter Date of birth">
+                                                                <input type="date" name="date_of_birth"  class="form-control" id="kycbirthdate-input"  max="2010-01-01" placeholder="Enter Date of birth">
                                                                 <label for="kycbirthdate-input" class="form-label">Date of birth</label>
                                                             </div>
                                                         </div>
