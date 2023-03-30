@@ -134,7 +134,7 @@
 
                                     <div>
                                     <hr>
-                                        <p>Already have an account ? <a href="{{url('user/login')}}" class="fw-medium text-primary"> Login</a> </p>
+                                        <p>Already have an account ? <a href="{{url('/staff/login')}}" class="fw-medium text-primary"> Login</a> </p>
                                         <p>© <script>document.write(new Date().getFullYear())</script> {{ env('APP_NAME') }}. </p>
                                     </div>
                                 </div>

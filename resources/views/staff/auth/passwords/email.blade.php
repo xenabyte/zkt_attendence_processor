@@ -55,7 +55,7 @@
 
                                 <div class="mt-5 text-center">
                                     <hr>
-                                    <p>Remember It ? <a href="{{ url('/login') }}" class="fw-medium text-primary"> Sign In here</a> </p>
+                                    <p>Remember It ? <a href="{{url('/staff/login')}}" class="fw-medium text-primary"> Sign In here</a> </p>
                                     <p>© <script>document.write(new Date().getFullYear())</script> {{env('APP_NAME') }}.</p>
                                 </div>
 
