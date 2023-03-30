@@ -47,7 +47,7 @@ class HomeController extends Controller
             'type'=>'required',
             'faculty' =>'required',
             'dept' =>'required',
-            'file' => 'required|file|mimes:jpg,png,gif,jpeg|max:4096',
+            // 'file' => 'required|file|mimes:jpg,png,gif,jpeg|max:4096',
         ]);
 
         if($validator->fails()) {
@@ -66,7 +66,7 @@ class HomeController extends Controller
             alert()->error('Error', 'Invalid Staff Email')->persistent('Close');
             return redirect()->back();
         }
-        
+
         //get staff information
         $staff = Staff::where('tau_staff_id', $tauStaffId)->first();
         if(!$staff){
@@ -85,9 +85,9 @@ class HomeController extends Controller
             return redirect()->back();
         }
 
-        $imageUrl = 'uploads/staff/'.md5($tauStaffId).$request->file('file')->getClientOriginalName(); 
+        $imageUrl = 'uploads/staff/'.md5($tauStaffId).$request->file('file')->getClientOriginalName();
         $image = $request->file('file')->move('uploads/staff', $imageUrl);
-        
+
 
         $staff->lastname = $request->lastname;
         $staff->firstname = $request->firstname;
