@@ -36,7 +36,10 @@ class AttendanceImport implements ToCollection
                 $staff = Staff::where('tau_staff_id', $tauStaffId)->first();
                 if(empty($staff)){
                     //create Staff
-                    Staff::create(['tau_staff_id' => $tauStaffId]);
+                    Staff::create([
+                        'tau_staff_id' => $tauStaffId,
+                        'status' => 'Active'
+                    ]);
                     $staff = Staff::where('tau_staff_id', $tauStaffId)->first();
                 }
 
